@@ -1,0 +1,18 @@
+.notification {
+    background: lightgrey;
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.error {
+    color: red;
+}
+
+.notice {
+    color: yellow;
+}
+
+.success {
+    color: green;
+}

@@ -1,10 +1,12 @@
 // Imports
 import React from 'react'
 import { connect } from 'react-redux'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Link } from 'react-router-dom'
+import { Helmet } from 'react-helmet'
 
 // App Imports
 import userRoutes from '../../../setup/routes/user'
+import pagesRoutes from '../../../setup/routes/pages'
 import { setError, setSuccess } from '../../common/component/notification/actions'
 import { register } from '../actions/me'
 import AuthCheck from '../../auth/component/AuthCheck'
@@ -54,6 +56,11 @@ const Register = (props) => {
         <div id="register_box">
             <AuthCheck />
 
+            {/* SEO */}
+            <Helmet>
+                <title>Register - Thefacebook</title>
+            </Helmet>
+
             <div style={{backgroundColor: '#4C70A0', color: 'white'}}>Registration</div>
             <h1 style={{textAlign: 'center'}}>[ Register ]</h1>
 
@@ -102,7 +109,7 @@ const Register = (props) => {
 
                 <div id="register_box_info">
                     <p id="register_links" style={{textAlign: 'left'}}>
-                        <input type="checkbox" name="terms" />I have read and understood the <a href="/terms">Terms of Use</a>, and I agree to them.
+                        <input type="checkbox" name="terms" />I have read and understood the <Link to={pagesRoutes.terms.path}>Terms of Use</Link>, and I agree to them.
                     </p>
                     <p>
                         * You can choose any password. It does not have to be, and should not be, your AFS password.

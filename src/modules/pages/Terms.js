@@ -1,5 +1,7 @@
 // Imports
 import React from 'react'
+import { Link } from 'react-router-dom'
+import { Helmet } from 'react-helmet'
 
 // App Imports
 import pagesRoutes from '../../setup/routes/pages'
@@ -7,6 +9,10 @@ import pagesRoutes from '../../setup/routes/pages'
 const Terms = () => {
     return (
         <div id="terms_box">
+            <Helmet>
+                <title>Terms of Use - Thefacebook</title>
+            </Helmet>
+
             <div style={{backgroundColor: "#4C70A0", color: "white"}}>Thefacebook Terms of Use</div>
             <h1 style={{textAlign: 'center'}}>[ Terms of Use ]</h1>
 
@@ -82,7 +88,7 @@ const Terms = () => {
             <div id="terms_boxes">
                 <div style={{backgroundColor: "#4C70A0", color: "white"}}>Privacy</div>
                 <p id="term_links">
-                    Use of the Web site and/or the Service is also governed by our <a href={pagesRoutes.privacy.path}>Privacy Policy</a>.
+                    Use of the Web site and/or the Service is also governed by our <Link to={pagesRoutes.privacy.path}>Privacy Policy</Link>.
                 </p>
                 </div>
                 <div id="terms_boxes">
@@ -124,7 +130,7 @@ const Terms = () => {
             <div id="terms_boxes">
                 <div style={{backgroundColor: "#4C70A0", color: "white"}}>Questions</div>
                 <p id="term_links">
-                    Please <a href={pagesRoutes.contact.path}>contact us</a> with any questions regarding this agreement.
+                    Please <Link to={pagesRoutes.contact.path}>contact us</Link> with any questions regarding this agreement.
                 </p>
             </div>
         </div>

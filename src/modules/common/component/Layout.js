@@ -7,7 +7,7 @@ import '../../../resources/css/style.css'
 
 // App Imports
 import Notification from './notification/Notification'
-import Header from './header/Header'
+import Header from './Header'
 import Footer from './Footer'
 
 const Layout = (props) => {

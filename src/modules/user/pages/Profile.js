@@ -1,5 +1,5 @@
 // Imports
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { connect } from 'react-redux'
 import { Redirect, withRouter } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
@@ -8,37 +8,47 @@ import { Helmet } from 'react-helmet'
 import ProfilePicture from '../component/ProfilePicture'
 import Links from '../component/Links'
 import Connection from '../component/Connection'
-import SidePanel from '../component/SidePanel'
+import SidePanel from '../../common/component/SidePanel'
 import Info from '../component/Info'
 import InfoForm from '../component/InfoForm'
+import MutualFriends from '../component/MutualFriends'
 import { routes } from '../../../setup/routes'
 import { getByUsername } from '../actions/users'
 import Loading from '../../common/component/Loading'
 import { renderIf } from '../../../utils/elementUtils'
 import { apostrophize } from '../../../utils/stringUtils'
-import { getUrlParam } from '../helper/uriHelper'
+import { getUrlParam } from '../../../utils/uriUtils'
 
 const Profile = (props) => {
 
+    const prevProps = useRef(false)
+
     const isEditable = (props) => {
-        const param = getUrlParam(props.location.pathname, "edit")
-        const editable = (!isNaN(param) && param > 0 && param <= 1)
-        
-        // check ownership of profile
-        return editable && props.user.details.id === props.me.details.id 
+        const editable = getUrlParam(
+            props.location.pathname, 
+            props.match.params.account + '/edit'
+        ) !== null
+
+        // check ownership of the profile
+        return editable && props.user.details.id === props.me.details.id
     }
 
     useEffect(() => {
-        const username = getUrlParam(props.location.pathname, "profile")
-        if (username && !props.user.isLoading) {
-            if (username !== props.user.details.username) {
-                props.getByUsername(username)
+        if (!prevProps.current || prevProps.current.location.pathname !== props.location.pathname) {
+            if (props.match.params.account && !props.user.isLoading) {
+                props.getByUsername(props.match.params.account)
             }
         }
+        prevProps.current = props
     }, [props])
 
     let { isLoading, error } = props.user
     let user = props.user.details
+
+    if (!prevProps.current) {
+        isLoading = true
+        error = false
+    }
 
     return (
         <div id="content">
@@ -48,25 +58,35 @@ const Profile = (props) => {
                         ? <Loading />
                         : renderIf(user && user.id, () => (
                             <>
+                                {/* SEO */}
+                                <Helmet>
+                                    <title>{`User - ${ user.name }`}</title>
+                                </Helmet>
+
+                                {/* Side panel */}
                                 <SidePanel />
+
+                                 {/* Profile details */}
                                 <div id="profile_box">
-                                    <div style={{ backgroundColor: '#4C70A0', color: 'white' }}> 
-                                        {apostrophize(user.name)} Profile
+                                    <div style={{ backgroundColor: '#4C70A0', color: 'white' }}>
+                                        {apostrophize(user.name)} Profile 
+                                        {renderIf(user.id === props.me.details.id, () => (' (This is you)'))}
                                     </div>
 
                                     <div id="profile_left_side">
-                                        <ProfilePicture user={user} />
-                                        <Links user={user} />
-                                        <Connection user={user} />
+                                        <ProfilePicture user={props.user} />
+                                        <Links user={props.user} />
+                                        <Connection user={props.user} />
+                                        <MutualFriends user={props.user} />
                                     </div>
                                     {
                                         isEditable(props)
                                             ? <InfoForm />
-                                            : <Info user={user} />
+                                            : <Info user={props.user} />
                                     }
                                 </div>
                             </>
-                            ))
+                        ))
                     : <Redirect to={routes.notFound.path} />
             }
         </div>

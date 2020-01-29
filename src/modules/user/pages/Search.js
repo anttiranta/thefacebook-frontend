@@ -1,33 +1,33 @@
 // Imports
 import React from 'react'
+import { Helmet } from 'react-helmet'
+
+// App Imports
+import SidePanel from '../../common/component/SidePanel'
+import SearchResults from '../component/search/result/List'
+import SearchForm from '../component/search/SearchForm'
 
 const Search = () => {
-    return (
-        <div id="login_page_box">
-            <div style={{ backgroundColor: '#4C70A0', color: 'white' }}>Search </div>
-            <h1 style={{ textAlign: 'center' }}>[ Search Users ] </h1>
+    const renderResultsCountText = (amount) => {
+        return 'Displaying all ' + amount + ' matches.'
+    }
 
-            <form>
-                <table>
-                    <tbody>
-                        <tr>
-                            <td style={{ width: '60px' }}>Name: </td>
-                            <td><input type="text" name="name" /></td>
-                        </tr>
-                    </tbody>
-                </table>
-                <table id="login_page_links">
-                    <tbody>
-                        <tr>
-                            <td style={{ textAlign: 'center', paddingRight: '5px' }}>
-                                <div id="fb_button">
-                                    <input type="submit" name="serch" value="Search" />
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </form>
+    return (
+        <div id="content">
+            {/* SEO */}
+            <Helmet>
+                <title>Search People - Thefacebook</title>
+            </Helmet>
+
+            {/* Side panel */}
+            <SidePanel />
+
+            {/* Main container */}
+            <div id="terms_box">
+                <div style={{ backgroundColor: '#4C70A0', color: 'white' }}>Search People</div><br />
+                <SearchForm />
+                <SearchResults renderResultsCountText={renderResultsCountText} />
+            </div>
         </div>
     )
 }

@@ -16,7 +16,6 @@ if (token && token !== 'undefined' && token !== '') {
   
   if (user) {
     store.dispatch(setUser(user, token))
-
     loginSetUserLocalStorage(token, user)
   }
 }

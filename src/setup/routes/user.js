@@ -3,6 +3,7 @@ import Login from '../../modules/user/pages/Login'
 import Register from '../../modules/user/pages/Register'
 import Profile from '../../modules/user/pages/Profile'
 import Search from '../../modules/user/pages/Search'
+import Friends from '../../modules/user/pages/Friends'
 
 // User routes
 export default {
@@ -23,13 +24,20 @@ export default {
   },
 
   editProfile: {
-    path: (account = ':account') => (`/user/profile/${ account }/edit/1`),
+    path: (account = ':account') => (`/user/profile/${ account }/edit`),
     component: Profile,
     auth: true
   },
 
   search: {
     path: '/user/search',
-    component: Search
+    component: Search,
+    auth: true
+  },
+
+  friends: {
+    path: (id = ':id') => (`/user/${ id }/friends`),
+    component: Friends,
+    auth: true
   },
 }

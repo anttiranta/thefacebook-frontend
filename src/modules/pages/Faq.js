@@ -1,5 +1,7 @@
 // Imports
 import React from 'react'
+import { Link } from 'react-router-dom'
+import { Helmet } from 'react-helmet'
 
 // App imports
 import pagesRoutes from '../../setup/routes/pages'
@@ -7,6 +9,10 @@ import pagesRoutes from '../../setup/routes/pages'
 const Faq = () => {
     return (
         <div id="faq_box">
+            <Helmet>
+                <title>FAQ - Thefacebook</title>
+            </Helmet>
+
             <div style={{backgroundColor: "#4C70A0", color: "white"}}>Frequently Asked Questions</div>
             
             <h1 style={{textAlign: 'center'}}>[ FAQ ]</h1>
@@ -53,7 +59,7 @@ const Faq = () => {
                 <a name="2"></a>
                 <div style={{backgroundColor: "#4C70A0", color: "white"}}>How can I protect my privacy?</div>
                 <p id="faq_box_links">
-                    You can adjust your <a href={pagesRoutes.privacy.path} style={{fontSize: "12px"}}> privacy </a> settings to allow only people within certain divisions of certain schools to see it. You can also set it so that only people who share something in common with you (eg. house, year, a course, friends) can see your information. And further, you can create different privacy settings for the four different parts of your profile: contact information, personal information, courses and friends.
+                    You can adjust your <Link to={pagesRoutes.privacy.path} style={{fontSize: "12px"}}> privacy </Link> settings to allow only people within certain divisions of certain schools to see it. You can also set it so that only people who share something in common with you (eg. house, year, a course, friends) can see your information. And further, you can create different privacy settings for the four different parts of your profile: contact information, personal information, courses and friends.
                 </p>
             </div>
             <div id="faq_boxes">
@@ -165,21 +171,21 @@ const Faq = () => {
             <div id="faq_boxes">
                 <div style={{backgroundColor: "#4C70A0", color: "white"}}>The site says I don't have a valid email address. Why?</div>
                 <p id="faq_box_links">
-                    Currently, you must register with a valid school email from one of the schools listed on the <a href={pagesRoutes.home.path} style={{fontSize: "12px"}}> front page</a>. This is both the way we authenticate your affiliation with that school's network, and the way we direct your login.
+                    Currently, you must register with a valid school email from one of the schools listed on the <Link to={pagesRoutes.home.path} style={{fontSize: "12px"}}> front page</Link>. This is both the way we authenticate your affiliation with that school's network, and the way we direct your login.
                 </p>
             </div>
             <a name="19"></a>
             <div id="faq_boxes">
                 <div style={{backgroundColor: "#4C70A0", color: "white"}}>My school is not on thefacebook network - why not and how can it be added?</div>
                 <p id="faq_box_links">
-                    Each school on the network has a custom site built for it before students from that school can register. We plan to include many new schools to the network over the next year. This requires no action on your part or by your school, but we do take <a href={pagesRoutes.contact.path} style={{fontSize: "12px"}}>suggestions</a>.
+                    Each school on the network has a custom site built for it before students from that school can register. We plan to include many new schools to the network over the next year. This requires no action on your part or by your school, but we do take <Link to={pagesRoutes.contact.path} style={{fontSize: "12px"}}>suggestions</Link>.
                 </p>
             </div>
             <a name="20"></a>
             <div id="faq_boxes">
                 <div style={{backgroundColor: "#4C70A0", color: "white"}}>I have a question that's not covered in the FAQ. How can I ask it?</div>
                 <p id="faq_box_links">
-                    <a href={pagesRoutes.contact.path} style={{fontSize: "12px"}}>Email us</a>.
+                    <Link to={pagesRoutes.contact.path} style={{fontSize: "12px"}}>Email us</Link>.
                 </p>
             </div>
         </div>

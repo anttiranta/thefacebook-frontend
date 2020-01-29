@@ -6,11 +6,13 @@ import thunk from 'redux-thunk';
 import me from '../modules/user/state/me'
 import * as user from '../modules/user/state/users'
 import notification from '../modules/common/component/notification/state'
+import searchFormParams from '../modules/user/component/search/state'
 
 // App Reducer
 const appReducer = combineReducers({
     me,
     ...user,
+    searchFormParams,
     message: notification
 })
 

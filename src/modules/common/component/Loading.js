@@ -1,6 +1,6 @@
 // Imports
 import React from 'react'
-//import PropTypes from 'prop-types'
+import PropTypes from 'prop-types'
 
 // Component
 const Loading = (props) => (
@@ -8,8 +8,8 @@ const Loading = (props) => (
 )
 
 // Component Properties
-/*Loading.propTypes = {
+Loading.propTypes = {
   message: PropTypes.string
-}*/
+}
 
 export default Loading

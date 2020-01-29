@@ -1,5 +1,7 @@
 // Imports
 import React from 'react'
+import { Link } from 'react-router-dom'
+import { Helmet } from 'react-helmet'
 
 // App Imports
 import pagesRoutes from '../../setup/routes/pages'
@@ -7,6 +9,10 @@ import pagesRoutes from '../../setup/routes/pages'
 const Privacy = () => {
     return (
         <div id="privacy_box">
+            <Helmet>
+                <title>Privacy Policy - Thefacebook</title>
+            </Helmet>
+
             <div style={{backgroundColor: "#4C70A0", color: "white"}}>Thefacebook Privacy Policy</div>
             <h1 style={{textAlign: 'center'}}>[ Privacy Policy ]</h1>
             <div id="privacy_boxes">
@@ -80,7 +86,7 @@ const Privacy = () => {
                 <div style={{backgroundColor: "#4C70A0", color: "white"}}>Security</div>
                 <p id="privacy_links">
                     Thefacebook accounts are password-protected. This web site takes every precaution to protect our users' information. Passwords are stored in hashed form in our database, and different sections of users' profiles are stored in different parts of our database to separate access to all of the information and make it more difficult to piece everything together. If you have any questions about the security of our web site, please 
-                    <a href={pagesRoutes.contact.path}> contact us</a>.
+                    <Link to={pagesRoutes.contact.path}> contact us</Link>.
                 </p>
             </div>
             <div id="privacy_boxes">
@@ -92,7 +98,7 @@ const Privacy = () => {
                 <div id="privacy_boxes">
                 <div style={{backgroundColor: "#4C70A0", color: "white"}}>Contacting the Web Site</div>
                 <p id="privacy_links">
-                    If you have any questions about this privacy statement, the practices of this site, or your dealings with this web site, please <a href={pagesRoutes.contact.path}>contact us</a>.
+                    If you have any questions about this privacy statement, the practices of this site, or your dealings with this web site, please <Link to={pagesRoutes.contact.path}>contact us</Link>.
                 </p>
             </div>
         </div>

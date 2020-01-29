@@ -1,12 +1,14 @@
 // Imports
 import React from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 // App Imports
 import userRoutes from '../../../setup/routes/user'
 
 const Info = (props) => {
-    const info = props.user
+    const info = props.user.details
+    const me = props.me.details
 
     return (
         <div id="information_box">
@@ -16,10 +18,11 @@ const Info = (props) => {
                         <tr>
                             <td>Information</td>
                             {
-                                props.user.id === props.me.details.id ?
+                                info.id === me.id ?
                                     <>
                                         <td id="fb_link" style={{ textAlign: 'right' }}>
-                                            <a href={userRoutes.editProfile.path(props.me.details.username)}> [ edit ] </a></td>
+                                            <Link to={userRoutes.editProfile.path(me.username)}> [ edit ] </Link>
+                                        </td>
                                     </>
                                     : <td>&nbsp;</td>
                             }

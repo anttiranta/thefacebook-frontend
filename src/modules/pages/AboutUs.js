@@ -1,14 +1,23 @@
 // Imports
 import React from 'react'
+import { Link } from 'react-router-dom'
+import { Helmet } from 'react-helmet'
 
 // Image Imports
 import MarkZuckerbergscard from '../../resources/images/Mark-Zuckerbergs-card.png'
+
+// App imports
+import pagesRoutes from '../../setup/routes/pages'
 
 const AboutUs = () => {
     const newFbSite = "http://www.facebook.com/"
 
     return (
         <div id="about_us_box">
+            <Helmet>
+                <title>About Thefacebook</title>
+            </Helmet>
+
             <div style={{backgroundColor: "#4C70A0", color: "white"}}>About Thefacebook</div>
             <h1 style={{textAlign: 'center'}}>[ About ]</h1>
 
@@ -45,7 +54,7 @@ const AboutUs = () => {
                         </tr>
                         <tr>
                             <td id="fb_link" style={{height: "30px"}}>
-                                <a href="/contact" style={{color: "#538ADC"}}>Contact us.</a>
+                                <Link to={pagesRoutes.contact.path} style={{color: "#538ADC"}}>Contact us.</Link>
                             </td>
                         </tr>
                     </tbody>

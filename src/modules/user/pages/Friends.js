@@ -12,7 +12,7 @@ const Friends = () => {
         <div id="content">
             {/* SEO */}
             <Helmet>
-                <title>Friends - Thefacebook</title>{/* TODO: better title */}
+                <title>Friends - Thefacebook</title>
             </Helmet>
 
             {/* Side panel */}

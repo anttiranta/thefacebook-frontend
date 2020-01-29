@@ -1,5 +1,7 @@
 // Imports
 import React from 'react'
+import { Link } from 'react-router-dom'
+import { Helmet } from 'react-helmet'
 
 // App Imports
 import AuthCheck from '../auth/component/AuthCheck'
@@ -9,6 +11,10 @@ const Welcome = () => {
     return (
         <div id="welcome_box">
             <AuthCheck />
+
+            <Helmet>
+                <title>Welcome - Thefacebook</title>
+            </Helmet>
             
             <div style={{backgroundColor: "#4C70A0", color: "white"}}>Welcome to Thefacebook</div>
             <h1 style={{textAlign: 'center'}}>[ Welcome to Thefacebook ]</h1>
@@ -23,9 +29,9 @@ const Welcome = () => {
             </ul>
             <p>To get started, click below to register. If you have already registered, you can log in.</p>
             <div style={{textAlign: 'center'}} id="fb_button">
-                <a href={userRoutes.register.path}>Register</a>
+                <Link to={userRoutes.register.path}>Register</Link>
                 &nbsp; &nbsp; 
-                <a href={userRoutes.login.path}>Login</a>
+                <Link to={userRoutes.login.path}>Login</Link>
             </div>
             <br />
         </div>

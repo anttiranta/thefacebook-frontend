@@ -125,5 +125,3 @@ export function deleteById(userId) {
     }
   }
 }
-
-// TODO: get friends

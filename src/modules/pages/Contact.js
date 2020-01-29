@@ -1,9 +1,14 @@
 // Imports
 import React from 'react'
+import { Helmet } from 'react-helmet'
 
 const Contact = () => {
     return (
         <div id="contact_box">
+            <Helmet>
+                <title>Contact Thefacebook</title>
+            </Helmet>
+
             <div style={{ backgroundColor: '#4C70A0', color: 'white' }}>Contact Thefacebook</div>
             <h1 style={{ textAlign: 'center' }}>[ Contact ]</h1>
 

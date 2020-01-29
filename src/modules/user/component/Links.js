@@ -1,31 +1,37 @@
 // Imports
 import React from 'react'
+import { connect } from 'react-redux'
 
 // App Imports
 import pagesRoutes from '../../../setup/routes/pages'
-import { apostrophize } from '../../../utils/stringUtils'
+import userRoutes from '../../../setup/routes/user'
+import LinkContainer from '../../common/component/links_box/LinkContainer'
+import LinkItem from '../../common/component/links_box/LinkItem'
+import { renderIf } from '../../../utils/elementUtils'
 
 const Links = (props) => {
+    const user = props.user.details
+    const me = props.me.details
+
     return (
-        <div id="preferences_box">
-            <table>
-                <tbody>
-                    <tr>
-                        <td><a href={pagesRoutes.construction.path}>{apostrophize(props.user.name) + ' Pictures'}</a></td>
-                    </tr>
-                    <tr>
-                        <td><a href={pagesRoutes.construction.path}>{apostrophize(props.user.name) + ' Groups'}</a></td>
-                    </tr>
-                    <tr>
-                        <td><a href={pagesRoutes.construction.path}>{apostrophize(props.user.name) + ' Friends'}</a></td>
-                    </tr>
-                    <tr>
-                        <td><a href={pagesRoutes.construction.path}>{apostrophize(props.user.name) + ' Messages'}</a></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+        <LinkContainer style={{ width: '282px', marginTop: '12px', textAlign: 'center' }}>
+            <LinkItem to={pagesRoutes.construction.path}>View More Photos</LinkItem>
+            <LinkItem to={userRoutes.friends.path(user.id)}>View All Friends</LinkItem>
+            {renderIf(user.id !== me.id, () => (
+                <LinkItem to={pagesRoutes.construction.path}>Send a Message</LinkItem>
+            ))}
+            {renderIf(user.id !== me.id, () => (
+                <LinkItem to={pagesRoutes.construction.path}>Add as a Friend</LinkItem>
+            ))}
+        </LinkContainer>
     )
 }
 
-export default Links;
+// Component State
+function linksState(state) {
+    return {
+        me: state.me
+    }
+}
+
+export default connect(linksState, null)(Links)

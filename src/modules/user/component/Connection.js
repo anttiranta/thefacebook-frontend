@@ -1,11 +1,14 @@
 // Imports
 import React from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
 const Connection = (props) => {
+    const user = props.user.details
+    const me = props.me.details
 
     // TODO: we need to know the real connection
-    const connection = props.user !== null && props.user.id === props.me.details.id ? 'This is you' : 'You are not connected'
+    const connection = user.id === me.id ? 'This is you' : 'You are not connected'
 
     return (
         <div id="connection_box">
@@ -13,6 +16,12 @@ const Connection = (props) => {
             {connection}
         </div>
     )
+}
+
+// Component Properties
+Connection.propTypes = {
+    user: PropTypes.object.isRequired,
+    me: PropTypes.object.isRequired
 }
 
 // Component State

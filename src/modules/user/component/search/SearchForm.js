@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 // App Imports
 import { setError } from '../../../common/component/notification/actions'
 import { setSearchFormParams } from '../../redux/actions/search'
-import { getList as getUserList } from '../../actions/users'
+import { getList as getUserList } from '../../redux/actions/users'
 import { defaultIfUndefined } from '../../../../utils/objectUtils'
 
 const SearchForm = (props) => {
@@ -60,16 +60,16 @@ const SearchForm = (props) => {
                     <tbody>
                         <tr>
                             <td width="20%">
-                                <select name="search_for">
+                                <select name="search_for" defaultValue={searchFor}>
                                     {
                                         Object.entries(searchForOptions).map((parts) => (
-                                            <option key={parts[0]} value={parts[0]} selected={searchFor === parts[0]}>{parts[1]}</option>
+                                            <option key={parts[0]} value={parts[0]}>{parts[1]}</option>
                                         ))
                                     }
                                 </select>
                             </td>
                             <td width="69%">
-                                <input type="text" name="search_word" value={searchWord} />
+                                <input type="text" name="search_word" defaultValue={searchWord} />
                             </td>
                             <td width="11%" style={{ textAlign: 'center', paddingRight: '5px' }}>
                                 <div id="fb_button">

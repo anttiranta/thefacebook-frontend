@@ -4,47 +4,37 @@ import axios from 'axios'
 // App Imports
 import { routeApi } from '../../../setup/routes'
 
+// Functions
 const getAll = async () => {
-    const response = await axios.get(getBaseUrl())
-    return response.data
+    return await axios.get(routeApi + 'V1/users')
 }
 
 const getById = async (id) => {
-    const response = await axios.get(`${getBaseUrl()}/${id}`)
-    return response.data
+    return await axios.get(`${routeApi + 'V1/users'}/${id}`)
 }
 
 const getByUsername = async (username) => {
-    const response = await axios.get(`${getBaseUrl()}/getByUsername/${username}`) 
-    return response.data
+    return await axios.get(`${routeApi + 'V1/users'}/getByUsername/${username}`) 
 }
 
 const createNew = async (userObject) => {
-    const response = await axios.post(getBaseUrl(), {
+    return await axios.post(routeApi + 'V1/users', {
         user: userObject.user,
         password: (userObject.password !== undefined && userObject.password !== '') 
             ? userObject.password 
             : null
     })
-    return response.data
 }
 
 const update = async (id, userObject) => {
-  const response = await axios.put(`${getBaseUrl()}/${id}`, userObject)
-  return response.data
+  return await axios.put(`${routeApi + 'V1/users'}/${id}`, userObject)
 }
 
 const deleteById = async (id) => {
-    const response = await axios.delete(`${getBaseUrl()}/${id}`)
-    return response.data
+    return await axios.delete(`${routeApi + 'V1/users'}/${id}`)
 }
 
-// TODO: find by name
-
-const getBaseUrl = () => {  
-    // TODO: move this elsewhere to prevent duplication
-    return routeApi + 'V1/users'
-}
+// TODO: find by params
 
 export default {
   getAll, 

@@ -13,7 +13,7 @@ import Info from '../component/Info'
 import InfoForm from '../component/InfoForm'
 import MutualFriends from '../component/MutualFriends'
 import { routes } from '../../../setup/routes'
-import { getByUsername } from '../actions/users'
+import { getByUsername } from '../redux/actions/users'
 import Loading from '../../common/component/Loading'
 import { renderIf } from '../../../utils/elementUtils'
 import { apostrophize } from '../../../utils/stringUtils'
@@ -77,7 +77,11 @@ const Profile = (props) => {
                                         <ProfilePicture user={props.user} />
                                         <Links user={props.user} />
                                         <Connection user={props.user} />
-                                        <MutualFriends user={props.user} />
+
+                                        {renderIf(user.id !== props.me.details.id, () => (
+                                            <MutualFriends user={props.user} />
+                                        ))}
+                                        
                                     </div>
                                     {
                                         isEditable(props)

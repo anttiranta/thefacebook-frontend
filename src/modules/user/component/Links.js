@@ -16,7 +16,7 @@ const Links = (props) => {
     return (
         <LinkContainer style={{ width: '282px', marginTop: '12px', textAlign: 'center' }}>
             <LinkItem to={pagesRoutes.construction.path}>View More Photos</LinkItem>
-            <LinkItem to={userRoutes.friends.path(user.id)}>View All Friends</LinkItem>
+            <LinkItem to={userRoutes.friends.path(user.username)}>View All Friends</LinkItem>
             {renderIf(user.id !== me.id, () => (
                 <LinkItem to={pagesRoutes.construction.path}>Send a Message</LinkItem>
             ))}

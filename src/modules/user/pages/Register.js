@@ -8,7 +8,7 @@ import { Helmet } from 'react-helmet'
 import userRoutes from '../../../setup/routes/user'
 import pagesRoutes from '../../../setup/routes/pages'
 import { setError, setSuccess } from '../../common/component/notification/actions'
-import { register } from '../actions/me'
+import { register } from '../redux/actions/me'
 import AuthCheck from '../../auth/component/AuthCheck'
 import { isValidEmail } from '../helper/validation'
 

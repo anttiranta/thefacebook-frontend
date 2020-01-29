@@ -7,7 +7,7 @@ import { BrowserRouter as Router } from 'react-router-dom'
 // App Imports
 import App from './App'
 import store from '../store'
-import { setUser, loginSetUserLocalStorage } from '../../modules/user/actions/me'
+import { setUser, loginSetUserLocalStorage } from '../../modules/user/redux/actions/me'
 
 // User Authentication
 const token = window.localStorage.getItem('token')

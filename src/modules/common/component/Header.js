@@ -6,7 +6,7 @@ import { Link, withRouter } from 'react-router-dom'
 // App Imports
 import pagesRoutes from '../../../setup/routes/pages'
 import userRoutes from '../../../setup/routes/user'
-import { logout } from '../../user/actions/me'
+import { logout } from '../../user/redux/actions/me'
 
 // Image Imports
 import pacino2 from '../../../resources/images/pacino2.png'

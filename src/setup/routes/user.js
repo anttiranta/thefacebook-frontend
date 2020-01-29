@@ -36,7 +36,7 @@ export default {
   },
 
   friends: {
-    path: (id = ':id') => (`/user/${ id }/friends`),
+    path: (account = ':account') => (`/user/${ account }/friends`),
     component: Friends,
     auth: true
   },

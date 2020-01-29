@@ -1,7 +1,7 @@
 // App Imports
 import {
     SET_PARAMS,
-} from './actions'
+} from '../actions/search'
 
 // Initial State
 const initialState = {

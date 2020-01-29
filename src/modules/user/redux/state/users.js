@@ -4,11 +4,14 @@ import {
   USERS_GET_LIST_RESPONSE,
   USERS_GET_LIST_FAILURE,
   USERS_GET_LIST_RESET,
-  USER_GET_REQUEST,
-  USER_GET_RESPONSE,
-  USER_GET_FAILURE
+  USERS_GET_REQUEST,
+  USERS_GET_RESPONSE,
+  USERS_GET_FAILURE,
+  USERS_GET_FRIEND_LIST_REQUEST,
+  USERS_GET_FRIEND_LIST_RESPONSE,
+  USERS_GET_FRIEND_LIST_FAILURE
 } from '../actions/users'
-import { defaultIfUndefined } from '../../../utils/objectUtils'
+import { defaultIfUndefined } from '../../../../utils/objectUtils'
 
 // User list
 
@@ -59,24 +62,62 @@ const userInitialState = {
 // State
 export const user = (state = userInitialState, action) => {
   switch (action.type) {
-    case USER_GET_REQUEST:
+    case USERS_GET_REQUEST:
       return {
         ...state,
         isLoading: defaultIfUndefined(action.isLoading, true),
         error: null,
       }
-    case USER_GET_RESPONSE:
+    case USERS_GET_RESPONSE:
       return {
         ...state,
         isLoading: false,
         error: defaultIfUndefined(action.error, null),
         details: action.user,
       }
-    case USER_GET_FAILURE:
+    case USERS_GET_FAILURE:
       return {
         ...state,
         isLoading: false,
         error: defaultIfUndefined(action.error, true)
+      }
+    default:
+      return state
+  }
+}
+
+// User friend list
+
+// Initial State
+const usersFriendInitialState = {
+  isLoading: false,
+  error: null,
+  list: [],
+  userId: 0
+}
+
+// State
+export const usersFriend = (state = usersFriendInitialState, action) => {
+  switch (action.type) {
+    case USERS_GET_FRIEND_LIST_REQUEST:
+      return {
+        ...state,
+        isLoading: action.isLoading,
+        error: null
+      }
+    case USERS_GET_FRIEND_LIST_RESPONSE:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.error,
+        list: action.list,
+        userId: action.userId
+      }
+    case USERS_GET_FRIEND_LIST_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.error
       }
     default:
       return state

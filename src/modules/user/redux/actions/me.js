@@ -2,8 +2,9 @@
 import axios from 'axios'
 
 // App Imports
-import userManagementApi from '../api/userManagement'
-import usersApi from '../api/users'
+import userManagementApi from '../../api/userManagement'
+import usersApi from '../../api/users'
+import { defaultIfUndefined } from '../../../../utils/objectUtils'
 
 // Actions Types
 export const LOGIN_REQUEST = 'AUTH/LOGIN_REQUEST'
@@ -32,18 +33,23 @@ export function login(username, password, isLoading = true) {
         try {
             const response = await userManagementApi.authenticate(username, password);
 
-            if (response.data.error) {
+            if (response.status === 200) {
+                if (response.data && response.data.token !== '') {
+                    const token = response.data.token
+                    const user = response.data.user
+                    
+                    dispatch(setUser(user, token))
+    
+                    loginSetUserLocalStorage(token, user)
+                    
+                    dispatch({type: LOGIN_RESPONSE})
+                } else {
+                    dispatch({type: LOGIN_RESPONSE})
+                    throw Error('Some error occurred. Please try again.')
+                }
+            } else {
                 dispatch({type: LOGIN_RESPONSE})
-                throw response.data.error
-            } else if (response.data.userLogin.token !== '') {
-                const token = response.data.userLogin.token
-                const user = response.data.userLogin.user
-                
-                dispatch(setUser(user, token))
-
-                loginSetUserLocalStorage(token, user)
-                
-                dispatch({type: LOGIN_RESPONSE})
+                throw Error(defaultIfUndefined(response.data.error, 'Some error occurred. Please try again.'))
             }
         } catch (exception) {
             dispatch({type: LOGIN_RESPONSE})

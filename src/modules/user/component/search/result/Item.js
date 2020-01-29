@@ -43,7 +43,7 @@ const Item = (props) => {
             <div style={{ marginTop: "-86px", marginBottom: "5px", marginRight: "0", marginLeft: "565px" }}>
                 <LinkContainer style={{ width: '120px' }}>
                     <LinkItem to={routes.profile.path(user.username)}>View Profile</LinkItem>
-                    <LinkItem to={routes.friends.path(user.id)}>View Friends</LinkItem>
+                    <LinkItem to={routes.friends.path(user.username)}>View Friends</LinkItem>
                     <LinkItem to={routes.construction.path}>Add to Friend</LinkItem>{/* TODO: if already a friend, dont show? */}
                     <LinkItem to={routes.construction.path}>Send Message</LinkItem>
                 </LinkContainer><br />

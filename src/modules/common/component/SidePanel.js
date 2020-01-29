@@ -16,7 +16,7 @@ const SidePanel = (props) => {
                 <Link to={userRoutes.profile.path(me.username)}> My Profile </Link>
                 <Link to={userRoutes.editProfile.path(me.username)}> [ edit ] </Link><br />
                 <Link to={pagesRoutes.construction.path}> My Groups </Link> <br />
-                <Link to={pagesRoutes.friends.path(me.id)}> My Friends </Link><br />
+                <Link to={pagesRoutes.friends.path(me.username)}> My Friends </Link><br />
                 <Link to={pagesRoutes.construction.path}> My Messages </Link><br />
                 <Link to={pagesRoutes.construction.path}> My Away Messages </Link> <br />
                 <Link to={pagesRoutes.construction.path}> My Mobile Info </Link> <br />

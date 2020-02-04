@@ -41,14 +41,12 @@ const Register = (props) => {
         try {
             validate({account, email, name, status, password, password2, terms})
 
-            register(
-                {user: {username: account, email, name, status}, password}
-            )
+            await props.register({username: account, email, name, relationship: status, password})
 
             props.setSuccess('Thank you, you have registered - you may now login.') 
             props.history.push(userRoutes.login.path) 
         } catch (exception) {
-            props.setError(exception.message) // TODO: better message printing
+            props.setError(exception.message)
         }
     }
 
@@ -123,4 +121,4 @@ const Register = (props) => {
     )
 }
 
-export default withRouter(connect(null, {setError, setSuccess})(Register))
+export default withRouter(connect(null, {register, setError, setSuccess})(Register))

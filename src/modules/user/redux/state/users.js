@@ -11,7 +11,6 @@ import {
   USERS_GET_FRIEND_LIST_RESPONSE,
   USERS_GET_FRIEND_LIST_FAILURE
 } from '../actions/users'
-import { defaultIfUndefined } from '../../../../utils/objectUtils'
 
 // User list
 
@@ -27,7 +26,7 @@ export const users = (state = usersInitialState, action) => {
     case USERS_GET_LIST_REQUEST:
       return {
         ...state,
-        isLoading: defaultIfUndefined(action.isLoading, true),
+        isLoading: action.isLoading || true,
         error: null
       }
     case USERS_GET_LIST_RESPONSE:
@@ -35,13 +34,13 @@ export const users = (state = usersInitialState, action) => {
         ...state,
         isLoading: false,
         list: action.list,
-        error: defaultIfUndefined(action.error, null)
+        error: action.error || null
       }
     case USERS_GET_LIST_FAILURE:
       return {
         ...state,
         isLoading: false,
-        error: defaultIfUndefined(action.error, true)
+        error: action.error || true
       }
     case USERS_GET_LIST_RESET:
       return Object.assign({}, usersInitialState)
@@ -65,21 +64,21 @@ export const user = (state = userInitialState, action) => {
     case USERS_GET_REQUEST:
       return {
         ...state,
-        isLoading: defaultIfUndefined(action.isLoading, true),
+        isLoading: action.isLoading || true,
         error: null,
       }
     case USERS_GET_RESPONSE:
       return {
         ...state,
         isLoading: false,
-        error: defaultIfUndefined(action.error, null),
+        error: action.error || null,
         details: action.user,
       }
     case USERS_GET_FAILURE:
       return {
         ...state,
         isLoading: false,
-        error: defaultIfUndefined(action.error, true)
+        error: action.error || true
       }
     default:
       return state

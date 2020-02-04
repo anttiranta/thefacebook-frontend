@@ -7,7 +7,6 @@ import { connect } from 'react-redux'
 import { setError } from '../../../common/component/notification/actions'
 import { setSearchFormParams } from '../../redux/actions/search'
 import { getList as getUserList } from '../../redux/actions/users'
-import { defaultIfUndefined } from '../../../../utils/objectUtils'
 
 const SearchForm = (props) => {
 
@@ -48,7 +47,7 @@ const SearchForm = (props) => {
         }
     }
 
-    const isLoading = defaultIfUndefined(props.users.isLoading, false)
+    const isLoading = props.users.isLoading || false
     let { searchFor, searchWord } = props.searchParams
 
     return (

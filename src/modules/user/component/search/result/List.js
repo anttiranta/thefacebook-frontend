@@ -8,12 +8,11 @@ import SearchResultItem from './Item'
 import ResultCountBox from '../../../../common/component/search/ResultCountBox'
 import Loading from '../../../../common/component/Loading'
 import { renderIf } from '../../../../../utils/elementUtils'
-import { defaultIfUndefined } from '../../../../../utils/objectUtils'
 
 const List = (props) => {
 
     let { isLoading, list } = props.users
-    let searchWord = defaultIfUndefined(props.searchParams.searchWord)
+    let searchWord = props.searchParams.searchWord || null
 
     const renderResultsCountText = (amount) => {
         return 'Displaying all ' + amount + ' matches.'

@@ -9,7 +9,6 @@ import { login } from '../redux/actions/me'
 import userRoutes from '../../../setup/routes/user'
 import { setError } from '../../common/component/notification/actions'
 import AuthCheck from '../../auth/component/AuthCheck'
-import { defaultIfUndefined } from '../../../utils/objectUtils'
 import Loading from '../../common/component/Loading'
 
 const Login = (props) => {
@@ -30,11 +29,11 @@ const Login = (props) => {
 
             props.history.push(userRoutes.profile.path(username))
         } catch (exception) {
-            props.setError(exception.message) // TODO: better message printing
+            props.setError(exception.message)
         }
     }
 
-    const isLoading = defaultIfUndefined(props.me.isLoading, false)
+    const isLoading = props.me.isLoading || false
 
     return (
         <div id="login_page_box">

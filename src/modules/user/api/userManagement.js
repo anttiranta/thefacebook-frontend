@@ -1,12 +1,16 @@
 // Imports
 import axios from 'axios'
+import { query } from 'gql-query-builder'
 
 // App Imports
 import { routeApi } from '../../../setup/routes'
 
 const authenticate = async (username, password) => {
-    const response = await axios.post(`${routeApi + 'V1/users'}/authenticate`, {username, password})
-    return response.data
+    return await axios.post(routeApi, query({
+        operation: 'authenticate',
+        variables: {username, password},
+        fields: ['user {id, name, email, username}', 'token']
+    }))
 }
 
 export default {

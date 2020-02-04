@@ -1,6 +1,5 @@
 // App Imports
 import usersApi from '../../api/users'
-import { defaultIfUndefined } from '../../../../utils/objectUtils'
 
 // Actions Types
 export const USERS_GET_LIST_REQUEST = 'USERS/GET_LIST_REQUEST'
@@ -35,7 +34,7 @@ export function getList(isLoading = true, forceRefresh = false) {
       } else {
         dispatch({
           type: USERS_GET_LIST_FAILURE,
-          error: defaultIfUndefined(response.data.error, 'Some error occurred. Please try again.')
+          error: response.data.error || 'Some error occurred. Please try again.'
         })
       }
     } catch (exception) {
@@ -72,7 +71,7 @@ export function getById(id, isLoading = true, idType = 'id') {
       } else {
         dispatch({
           type: USERS_GET_FAILURE,
-          error: defaultIfUndefined(response.data.error, 'Some error occurred. Please try again.')
+          error: response.data.error || 'Some error occurred. Please try again.'
         })
       }
     } catch (exception) {
@@ -112,7 +111,7 @@ export function getFriendList(userId, isLoading = true) {
       } else {
         dispatch({
           type: USERS_GET_FRIEND_LIST_FAILURE,
-          error: defaultIfUndefined(response.data.error, 'Some error occurred. Please try again.'),
+          error: response.data.error || 'Some error occurred. Please try again.',
           isLoading: false
         })
       }

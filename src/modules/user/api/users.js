@@ -1,46 +1,82 @@
 // Imports
 import axios from 'axios'
-import { mutation } from 'gql-query-builder'
+import { query, mutation } from 'gql-query-builder'
 
 // App Imports
 import { routeApi } from '../../../setup/routes'
+import { isEmpty } from '../../../utils/objectUtils'
+
+const defaultUserFields = [
+  'id', 
+  'name', 
+  'email', 
+  'username', 
+  'gender', 
+  'memberSince', 
+  'status', 
+  'year', 
+  'concentration', 
+  'lookingFor', 
+  'interestedIn', 
+  'relationship', 
+  'politicalView', 
+  'interests', 
+  'profilePicture'
+]
 
 // Functions
-const getAll = async () => {
-    return await axios.get(routeApi + 'V1/users')
+const getList = async (variables = {}) => {
+  const defaultOptions = {
+    operation: 'users',
+    fields: defaultUserFields
+  }
+
+  return await axios.post(routeApi, query(
+    !isEmpty(variables) ? { ...defaultOptions, 'variables': variables } : defaultOptions
+  ))
 }
 
 const getById = async (id) => {
-    return await axios.get(`${routeApi + 'V1/users'}/${id}`)
+  return await axios.post(routeApi, query({
+    operation: 'getUserById',
+    variables: { id },
+    fields: defaultUserFields
+  }))
 }
 
 const getByUsername = async (username) => {
-    return await axios.get({routeApi}) // TODO!
+  return await axios.post(routeApi, query({
+    operation: 'getUserByUsername',
+    variables: { username },
+    fields: defaultUserFields
+  }))
 }
 
 const createNew = async (userObject) => {
-    return await axios.post(routeApi, mutation({
-        operation: 'createAccount',
-        variables: userObject,
-        fields: ['id', 'name', 'email']
-      }))
+  return await axios.post(routeApi, mutation({
+    operation: 'createAccount',
+    variables: userObject,
+    fields: ['id', 'name', 'email']
+  }))
 }
 
 const update = async (id, userObject) => {
+  // TODO!
   return await axios.put(`${routeApi}/${id}`, userObject)
 }
 
 const deleteById = async (id) => {
-    return await axios.delete(`${routeApi}/${id}`)
+   // TODO!
+  return await axios.delete(`${routeApi}/${id}`)
 }
 
-// TODO: find by params
+// TODO: get friends
 
 export default {
-  getAll, 
+  getList,
   getById,
   getByUsername,
-  createNew, 
+  createNew,
   update,
   deleteById
 }

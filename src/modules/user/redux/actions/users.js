@@ -1,5 +1,6 @@
 // App Imports
 import usersApi from '../../api/users'
+import PrintableError from '../../../../errors/PrintableError'
 
 // Actions Types
 export const USERS_GET_LIST_REQUEST = 'USERS/GET_LIST_REQUEST'
@@ -16,7 +17,7 @@ export const USERS_GET_FRIEND_LIST_FAILURE = 'USERS/GET_FRIEND_LIST_FAILURE'
 // Actions
 
 // Get list of users
-export function getList(isLoading = true, forceRefresh = false) {
+export function getList(variables = {}, isLoading = true, forceRefresh = false) {
   return async dispatch => {
     dispatch({
       type: USERS_GET_LIST_REQUEST,
@@ -24,30 +25,47 @@ export function getList(isLoading = true, forceRefresh = false) {
     })
 
     try {
-      const response = await usersApi.getAll();
+      const response = await usersApi.getList(variables);
+
+      let errors = response.data.errors
+      let data = response.data.data
 
       if (response.status === 200) {
+        if (errors && errors.length > 0) {
+          throw new PrintableError(errors[0].message)
+        }
+
         dispatch({
           type: USERS_GET_LIST_RESPONSE,
-          list: response.data
-        })
-      } else {
-        dispatch({
-          type: USERS_GET_LIST_FAILURE,
-          error: response.data.error || 'Some error occurred. Please try again.'
+          list: data.users
         })
       }
-    } catch (exception) {
+    } catch (exception) { 
       dispatch({
         type: USERS_GET_LIST_FAILURE,
-        error: exception.message
+        error: exception instanceof PrintableError 
+          ? exception.message 
+          : 'Some error occurred. Please try again.'
       })
     }
   }
 }
 
 // Get single user by id
-export function getById(id, isLoading = true, idType = 'id') {
+export function getById(id, isLoading = true) {
+  return getSingleUser(id, function(id) {
+    return usersApi.getById(id);
+  }, isLoading)
+}
+
+// Get single user by username
+export function getByUsername(username, isLoading = true) {
+  return getSingleUser(username, function(username) {
+    return usersApi.getByUsername(username);
+  }, isLoading)
+}
+
+function getSingleUser(id, callback, isLoading = true) {
   return async dispatch => {
     dispatch({
       type: USERS_GET_REQUEST,
@@ -55,37 +73,29 @@ export function getById(id, isLoading = true, idType = 'id') {
     })
 
     try {
-      let response = {}
-      if (idType === 'username') {
-        // TODO: there has to be a better way to do this...
-        response = await usersApi.getByUsername(id);
-      } else {
-        response = await usersApi.getById(id);
-      }
+      const response = await callback(id);
+
+      let errors = response.data.errors
+      let data = response.data.data
 
       if (response.status === 200) {
+        if (errors && errors.length > 0) {
+          throw new PrintableError(errors[0].message)
+        }
         dispatch({
           type: USERS_GET_RESPONSE,
-          user: response.data
-        })
-      } else {
-        dispatch({
-          type: USERS_GET_FAILURE,
-          error: response.data.error || 'Some error occurred. Please try again.'
+          user: data.getUserByUsername
         })
       }
     } catch (exception) {
       dispatch({
         type: USERS_GET_FAILURE,
-        error: exception.message
+        error: exception instanceof PrintableError 
+          ? exception.message 
+          : 'Some error occurred. Please try again.'
       })
     }
   }
-}
-
-// Get single user by username
-export function getByUsername(username, isLoading = true) {
-  return getById(username, isLoading, 'username')
 }
 
 // Get list of friends by user

@@ -1,5 +1,5 @@
 // Imports
-import React from 'react'
+import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
@@ -15,11 +15,17 @@ const SearchForm = (props) => {
         "username": "User ID",
         "email": "Email",
         "sex": "Sex",
-        "looking_for": "Looking for",
-        "interested_in": "Interested In",
-        "political_views": "Political Views",
+        "lookingFor": "Looking for",
+        "interestedIn": "Interested In",
+        "politicalView": "Political Views",
         "interests": "Interests",
     }
+
+    useEffect(() => {
+        if (props.users.error) {
+            props.setError(props.users.error)
+        }
+    })
 
     const validateSearchParams = (params) => {
         if (!params.searchFor || !params.searchWord) {
@@ -41,9 +47,9 @@ const SearchForm = (props) => {
 
             props.setSearchFormParams({searchFor, searchWord})
 
-            props.getUserList()
+            props.getUserList({[searchFor]: searchWord})
         } catch (exception) {
-            props.setError(exception.message) // TODO: better message printing
+            props.setError(exception.message)
         }
     }
 

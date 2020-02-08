@@ -4,11 +4,11 @@ import PropTypes from 'prop-types'
 
 // Component
 const ResultCountBox = (props) => {
-  const { text } = props
+  const { children } = props
 
   return (
     <div style={{ backgroundColor: "#D9DFEA", color: "#4C70A0", paddingLeft: '2px' }}>
-        {text}   
+        {children}   
     </div>
   )
 }

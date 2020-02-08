@@ -85,7 +85,7 @@ const Profile = (props) => {
                                     </div>
                                     {
                                         isEditable(props)
-                                            ? <InfoForm />
+                                            ? <InfoForm user={props.user} />
                                             : <Info user={props.user} />
                                     }
                                 </div>

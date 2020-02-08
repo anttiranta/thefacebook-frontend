@@ -19,15 +19,15 @@
   height: 101px;
 }
 
-#header a, .fake_link {
+#header a, .clickable_link {
   text-decoration: none;
 }
 
-#header a:link, .fake_link:link {
+#header a:link, .clickable_link:link {
   color: white;
 }
 
-#header a:visited, .fake_link:visited {
+#header a:visited, .clickable_link:visited {
   color: white;
 }
 
@@ -44,7 +44,7 @@
   width: 360px;
 }
 
-#top_links a:hover, .fake_link:hover {
+#top_links a:hover, .clickable_link:hover {
   color: #77C9F3
 }
 
@@ -174,12 +174,12 @@
   text-align: center;
 }
 
-#links_box a {
+#links_box a, .clickable_link {
   text-decoration: none;
   color: #68A0E0;
 }
 
-#links_box a:hover {
+#links_box a:hover, .clickable_link:hover {
   color: #77C9F3;
   text-decoration: underline;
 }
@@ -428,4 +428,8 @@
   margin-top: 1px;
   text-align: center;
   width: auto;
+}
+
+.clickable_link {
+  cursor: pointer;
 }

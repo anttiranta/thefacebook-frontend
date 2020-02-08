@@ -8,9 +8,7 @@ const LinkContainer = (props) => {
     return (
         <div id="links_box">
             <table {...others}>
-                <tbody>
-                    {children}
-                </tbody>
+                <tbody>{children}</tbody>
             </table>
         </div>
     )

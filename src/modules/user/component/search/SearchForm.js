@@ -14,7 +14,7 @@ const SearchForm = (props) => {
         "name": "Name",
         "username": "User ID",
         "email": "Email",
-        "sex": "Sex",
+        "gender": "Sex",
         "lookingFor": "Looking for",
         "interestedIn": "Interested In",
         "politicalView": "Political Views",

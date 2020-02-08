@@ -41,7 +41,7 @@ const Info = (props) => {
                     </tr>
                     <tr>
                         <td>Member Since:</td>
-                        <td>{info.member_since}</td>
+                        <td>{info.memberSince ? new Date(parseInt(info.memberSince)).toUTCString() : ''}</td>
                     </tr>
                 </tbody>
             </table>
@@ -60,7 +60,7 @@ const Info = (props) => {
                     </tr>
                     <tr>
                         <td>Sex:</td>
-                        <td>{info.sex}</td>
+                        <td>{info.gender}</td>
                     </tr>
                     <tr>
                         <td>Year:</td>
@@ -83,11 +83,11 @@ const Info = (props) => {
                     </tr>
                     <tr>
                         <td>Looking For:</td>
-                        <td>{info.looking_for}</td>
+                        <td>{info.lookingFor}</td>
                     </tr>
                     <tr>
                         <td>Interested In:</td>
-                        <td>{info.interested_in}</td>
+                        <td>{info.interestedIn}</td>
                     </tr>
                     <tr>
                         <td>Relationship Status:</td>
@@ -95,7 +95,7 @@ const Info = (props) => {
                     </tr>
                     <tr>
                         <td>Political Views:</td>
-                        <td>{info.political_view}</td>
+                        <td>{info.politicalView}</td>
                     </tr>
                     <tr>
                         <td>Interests:</td>

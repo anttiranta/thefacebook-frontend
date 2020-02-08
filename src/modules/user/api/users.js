@@ -15,7 +15,7 @@ const defaultUserFields = [
   'memberSince', 
   'status', 
   'year', 
-  'concentration', 
+  'concentation', 
   'lookingFor', 
   'interestedIn', 
   'relationship', 
@@ -25,14 +25,15 @@ const defaultUserFields = [
 ]
 
 // Functions
-const getList = async (variables = {}) => {
+
+const getList = async (queryOptions = {}) => {
   const defaultOptions = {
     operation: 'users',
     fields: defaultUserFields
   }
 
   return await axios.post(routeApi, query(
-    !isEmpty(variables) ? { ...defaultOptions, 'variables': variables } : defaultOptions
+    !isEmpty(queryOptions) ? Object.assign(defaultOptions, queryOptions) : defaultOptions 
   ))
 }
 
@@ -56,21 +57,29 @@ const createNew = async (userObject) => {
   return await axios.post(routeApi, mutation({
     operation: 'createAccount',
     variables: userObject,
-    fields: ['id', 'name', 'email']
+    fields: ['id']
   }))
 }
 
-const update = async (id, userObject) => {
-  // TODO!
-  return await axios.put(`${routeApi}/${id}`, userObject)
+const update = async (userObject) => {
+  if (!userObject.id || userObject.id <= 0) {
+    throw new Error('Identifier is missing.')
+  }
+
+  return await axios.post(routeApi, mutation({
+    operation: 'updateAccount',
+    variables: userObject,
+    fields: defaultUserFields
+  }))
 }
 
 const deleteById = async (id) => {
-   // TODO!
-  return await axios.delete(`${routeApi}/${id}`)
+  return await axios.post(routeApi, mutation({
+    operation: 'removeAccount',
+    variables: { id },
+    fields: ['id']
+  }))
 }
-
-// TODO: get friends
 
 export default {
   getList,

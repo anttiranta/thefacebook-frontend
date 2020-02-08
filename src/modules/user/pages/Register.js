@@ -44,6 +44,7 @@ const Register = (props) => {
             await props.register({username: account, email, name, relationship: status, password})
 
             props.setSuccess('Thank you, you have registered - you may now login.') 
+            
             props.history.push(userRoutes.login.path) 
         } catch (exception) {
             props.setError(exception.message)

@@ -1,5 +1,6 @@
 // App Imports
 import usersApi from '../../api/users'
+import userFriendsApi from '../../api/userFriends'
 import PrintableError from '../../../../errors/PrintableError'
 
 // Actions Types
@@ -25,7 +26,9 @@ export function getList(variables = {}, isLoading = true, forceRefresh = false) 
     })
 
     try {
-      const response = await usersApi.getList(variables);
+      const response = await usersApi.getList({
+        'variables': variables,
+      });
 
       let errors = response.data.errors
       let data = response.data.data
@@ -40,11 +43,11 @@ export function getList(variables = {}, isLoading = true, forceRefresh = false) 
           list: data.users
         })
       }
-    } catch (exception) { 
+    } catch (exception) {
       dispatch({
         type: USERS_GET_LIST_FAILURE,
-        error: exception instanceof PrintableError 
-          ? exception.message 
+        error: exception instanceof PrintableError
+          ? exception.message
           : 'Some error occurred. Please try again.'
       })
     }
@@ -53,14 +56,14 @@ export function getList(variables = {}, isLoading = true, forceRefresh = false) 
 
 // Get single user by id
 export function getById(id, isLoading = true) {
-  return getSingleUser(id, function(id) {
+  return getSingleUser(id, function (id) {
     return usersApi.getById(id);
   }, isLoading)
 }
 
 // Get single user by username
 export function getByUsername(username, isLoading = true) {
-  return getSingleUser(username, function(username) {
+  return getSingleUser(username, function (username) {
     return usersApi.getByUsername(username);
   }, isLoading)
 }
@@ -90,8 +93,8 @@ function getSingleUser(id, callback, isLoading = true) {
     } catch (exception) {
       dispatch({
         type: USERS_GET_FAILURE,
-        error: exception instanceof PrintableError 
-          ? exception.message 
+        error: exception instanceof PrintableError
+          ? exception.message
           : 'Some error occurred. Please try again.'
       })
     }
@@ -108,27 +111,27 @@ export function getFriendList(userId, isLoading = true) {
     })
 
     try {
-      const response = await usersApi.getAll(); // TODO: replace with real api call
+      const response = await userFriendsApi.getList(userId);
+
+      let data = response.data.data
 
       if (response.status === 200) {
         dispatch({
           type: USERS_GET_FRIEND_LIST_RESPONSE,
           error: null,
           isLoading: false,
-          list: response.data,
+          list: data.userFriends,
           userId
         })
       } else {
-        dispatch({
-          type: USERS_GET_FRIEND_LIST_FAILURE,
-          error: response.data.error || 'Some error occurred. Please try again.',
-          isLoading: false
-        })
+        throw new PrintableError('Some error occurred. Please try again.')
       }
     } catch (exception) {
       dispatch({
         type: USERS_GET_FRIEND_LIST_FAILURE,
-        error: exception.message,
+        error: exception instanceof PrintableError
+          ? exception.message
+          : 'Some error occurred. Please try again.',
         isLoading: false
       })
     }
@@ -139,13 +142,15 @@ export function getFriendList(userId, isLoading = true) {
 export function update(user) {
   return async dispatch => {
     try {
-      // TODO: can we use this to remove friend as well?
-      const response = await usersApi.update(user.id, user);
+      const response = await usersApi.update(user)
 
-      if (response.data.error) {
-        throw response.data.error
+      let errors = response.data.errors
+      if (errors && errors.length > 0) {
+        throw new PrintableError(errors[0].message)
       } else if (response.status === 200) {
-        return response.data
+        return response.data.data.updateAccount
+      } else {
+        throw new PrintableError('Some error occurred. Please try again.')
       }
     } catch (exception) {
       throw exception
@@ -159,10 +164,13 @@ export function deleteById(userId) {
     try {
       const response = await usersApi.deleteById(userId);
 
-      if (response.data.error) {
-        throw response.data.error
+      let errors = response.data.errors
+      if (errors && errors.length > 0) {
+        throw new PrintableError(errors[0].message)
       } else if (response.status === 200) {
         return
+      } else {
+        throw new PrintableError('Some error occurred. Please try again.')
       }
     } catch (exception) {
       throw exception

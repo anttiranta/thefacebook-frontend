@@ -9,11 +9,7 @@ const LinkItem = (props) => {
 
   return (
     <tr>
-      <td>
-        <Link to={to}>
-          {children}
-        </Link>
-      </td>
+      <td><Link to={to}>{children}</Link></td>
     </tr>
   )
 }

@@ -7,6 +7,7 @@ import { Link, withRouter } from 'react-router-dom'
 import pagesRoutes from '../../../setup/routes/pages'
 import userRoutes from '../../../setup/routes/user'
 import { logout } from '../../user/redux/actions/me'
+import ClickableLink from './ClickableLink'
 
 // Image Imports
 import pacino2 from '../../../resources/images/pacino2.png'
@@ -35,9 +36,7 @@ const Header = (props) => {
                             <Link to={pagesRoutes.construction.path} style={padding}>global</Link>
                             <Link to={pagesRoutes.construction.path} style={padding}>social net</Link>
                             <Link to={pagesRoutes.construction.path} style={padding}>invite</Link>
-                            <span onClick={() => handleLogout()} style={{padding: 5, cursor: 'pointer' }} className={'fake_link'}>
-                                logout
-                            </span>
+                            <ClickableLink onPress={handleLogout} linkStyle={{padding: 5}}>logout</ClickableLink>
                         </>
                         : 
                         <>

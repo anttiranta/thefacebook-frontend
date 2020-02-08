@@ -1,9 +1,70 @@
 // Imports
 import React from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 
-const InfoForm = () => {
+// App Imports
+import { setError, setSuccess } from '../../common/component/notification/actions'
+import useInput from '../../../hooks/useInput'
+import { update } from '../redux/actions/users'
+import { isValidEmail } from '../helper/validation'
+import userRoutes from '../../../setup/routes/user'
 
-  // TODO!
+const InfoForm = (props) => {
+  const user = props.user.details
+
+  // Inputs, selects, etc.
+  const emailInput = useInput('text', user.email)
+  const statusSelect = useInput('select', user.status)
+  const sexSelect = useInput('select', user.gender)
+  const yearSelect = useInput('select', user.year)
+  const concentationInput = useInput('text', user.concentation)
+  const lookingForInput = useInput('text', user.lookingFor)
+  const interestedInSelect = useInput('select', user.interestedIn)
+  const relationshipSelect = useInput('select', user.relationship)
+  const politicalViewSelect = useInput('select', user.politicalView)
+  const interestsInput = useInput('text', user.interests)
+
+  const validate = () => {
+    if (!emailInput.value) {
+      throw new Error('You did not fill all of the required fields.')
+    }
+    if (!isValidEmail(emailInput.value)) {
+      throw new Error('Please enter a valid email address.')
+    }
+    if (yearSelect.value !== "" && isNaN(yearSelect.value)) {
+      throw new Error('Please enter a valid year.')
+    }
+  }
+
+  const handleSubmit = async (event) => {
+    event.preventDefault()
+
+    try {
+      validate()
+
+      await props.update({
+        'id': user.id,
+        'email': emailInput.value,
+        'status': statusSelect.value,
+        'gender': sexSelect.value,
+        'year': yearSelect.value !== "" ? parseInt(yearSelect.value) : 0,
+        'concentation': concentationInput.value,
+        'lookingFor': lookingForInput.value,
+        'interestedIn': interestedInSelect.value,
+        'relationship': relationshipSelect.value,
+        'politicalView': politicalViewSelect.value,
+        'interests': interestsInput.value,
+      })
+
+      props.setSuccess('Profile updated!')
+
+      props.history.push(userRoutes.profile.path(user.username))
+    } catch (exception) {
+      props.setError(exception.message)
+    }
+  }
 
   return (
     <div id="information_box">
@@ -17,33 +78,40 @@ const InfoForm = () => {
           </tbody>
         </table>
       </div>
+
+      {/* Unchangeable Info */}
       <table>
         <tbody>
           <tr><th colSpan='2'>Account Info:</th></tr>
           <tr>
             <td>Name:</td>
-            <td>{/* name */}</td>
+            <td>{user.name}</td>
+          </tr>
+          <tr>
+            <td>Screenname:</td>
+            <td>{user.username}</td>
           </tr>
           <tr>
             <td>Member Since:</td>
-            <td>{/* member_since */}</td>
+            <td>{user.memberSince ? new Date(parseInt(user.memberSince)).toUTCString() : ''}</td>
           </tr>
         </tbody>
       </table>
 
-      <form action="">
+      {/* Info Form */}
+      <form onSubmit={handleSubmit}>
         <table>
           <tbody>
             <tr><th colSpan='2'>Basic Info:</th></tr>
             <tr>
-              <td>Email:</td>
-              <td>{/* email */}</td>
+              <td>Email: <span style={{ color: 'red' }}>*</span></td>
+              <td><input type="text" name="email" {...emailInput} /></td>
             </tr>
             <tr>
               <td>Status:</td>
               <td>
-                <select name="status">
-                  <option value="">{/* status */}</option>
+                <select name="status"  {...statusSelect}>
+                  <option value="">Please choose</option>
                   <option value="Student">Student </option>
                   <option value="Alumnus">Alumnus/Alumna</option>
                   <option value="Faculty">Faculty</option>
@@ -54,8 +122,8 @@ const InfoForm = () => {
             <tr>
               <td>Sex:</td>
               <td>
-                <select name="sex">
-                  <option value="">{/* sex */}</option>
+                <select name="sex" {...sexSelect}>
+                  <option value="">Please choose</option>
                   <option value="Male">Male</option>
                   <option value="Female">Female</option>
                   <option value="Couple">Couple</option>
@@ -65,8 +133,8 @@ const InfoForm = () => {
             <tr>
               <td>Year:</td>
               <td>
-                <select name="year">
-                  <option value="">{/* year */}</option>
+                <select name="year" {...yearSelect}>
+                  <option value="">Please choose</option>
                   <option value="2016">2016</option>
                   <option value="2016">2016</option>
                   <option value="2015">2015</option>
@@ -90,7 +158,9 @@ const InfoForm = () => {
             </tr>
             <tr>
               <td>Concentration:</td>
-              <td><input type="text" name="concentration" /></td>
+              <td>
+                <input type="text" name="concentation" {...concentationInput} />
+              </td>
             </tr>
           </tbody>
         </table>
@@ -98,18 +168,14 @@ const InfoForm = () => {
           <tbody>
             <tr><th colSpan='2'>Extended Info:</th></tr>
             <tr>
-              <td>Screenname:</td>
-              <td><input type="text" name="screenname" /></td>
-            </tr>
-            <tr>
               <td>Looking For:</td>
-              <td><input type="text" name="looking_for" /></td>
+              <td><input type="text" name="lookingFor" {...lookingForInput} /></td>
             </tr>
             <tr>
               <td>Interested In:</td>
               <td>
-                <select name="interested_in">
-                  <option value=""></option>
+                <select name="interestedIn" {...interestedInSelect} >
+                  <option value="">Please choose</option>
                   <option value="Women">Women</option>
                   <option value="Men">Men</option>
                   <option value="Couple">Couple</option>
@@ -119,8 +185,8 @@ const InfoForm = () => {
             <tr>
               <td>Relationship Status:</td>
               <td>
-                <select name="relationship">
-                  <option value="">{/* email */}</option>
+                <select name="relationship" {...relationshipSelect} >
+                  <option value="">Please choose</option>
                   <option value="Single">Single</option>
                   <option value="In a relationship">In a Relationship</option>
                   <option value="Married">Married</option>
@@ -131,8 +197,8 @@ const InfoForm = () => {
             <tr>
               <td>Political Views:</td>
               <td>
-                <select name="political_view">
-                  <option value="">{/* email */}</option>
+                <select name="politicalView" {...politicalViewSelect} >
+                  <option value="">Please choose</option>
                   <option value="Liberal">Liberal</option>
                   <option value="Conservative">Conservative</option>
                   <option value="Moderate">Moderate</option>
@@ -142,14 +208,21 @@ const InfoForm = () => {
             </tr>
             <tr>
               <td>Interests:</td>
-              <td><input type="text" name="interests" /></td>
+              <td><input type="text" name="interests" {...interestsInput} /></td>
             </tr>
           </tbody>
         </table>
-        <div id="fb_button" style={{ textAlign: 'center' }}> <input type="submit" name="submit" value="Update Profile" /></div>
+        <div id="fb_button" style={{ textAlign: 'center' }}>
+          <input type="submit" name="submit" value="Update Profile" />
+        </div>
       </form>
     </div>
   )
 }
 
-export default InfoForm;
+// Component Properties
+InfoForm.propTypes = {
+  user: PropTypes.object.isRequired
+}
+
+export default withRouter(connect(null, { setError, setSuccess, update })(InfoForm));

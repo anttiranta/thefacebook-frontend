@@ -5,6 +5,7 @@ import thunk from 'redux-thunk';
 // App imports
 import me from '../modules/user/redux/state/me'
 import * as user from '../modules/user/redux/state/users'
+import * as friendRequest from '../modules/friend_request/redux/state'
 import notification from '../modules/common/component/notification/state'
 import searchFormParams from '../modules/user/redux/state/search'
 
@@ -12,6 +13,7 @@ import searchFormParams from '../modules/user/redux/state/search'
 const appReducer = combineReducers({
     me,
     ...user,
+    ...friendRequest,
     searchFormParams,
     message: notification
 })

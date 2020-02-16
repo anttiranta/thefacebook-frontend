@@ -1,3 +1,5 @@
 # thefacebook-frontend
 
-## Under construction
+Frontend implementation for this project: https://github.com/anttiranta/thefacebook-backend
+
+Under construction.

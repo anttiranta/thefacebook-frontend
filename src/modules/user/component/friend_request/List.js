@@ -4,11 +4,11 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
 // App Imports
-import Item from './Item'
-import ResultCountBox from '../../common/component/search/ResultCountBox'
-import Loading from '../../common/component/Loading'
-import { renderIf } from '../../../utils/elementUtils'
-import { getListByReceiver } from '../redux/actions'
+import Item from '../../../friend_request/component/Item'
+import ResultCountBox from '../../../common/component/search/ResultCountBox'
+import Loading from '../../../common/component/Loading'
+import { renderIf } from '../../../../utils/elementUtils'
+import { getListByReceiver } from '../../../friend_request/redux/actions'
 
 const List = (props) => {
 

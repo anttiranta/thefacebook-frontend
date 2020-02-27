@@ -9,7 +9,7 @@ const authenticate = async (username, password) => {
     return await axios.post(routeApi, query({
         operation: 'authenticate',
         variables: {username, password},
-        fields: ['user {id, name, email, username}', 'token']
+        fields: ['user {id, email, username}', 'token']
     }))
 }
 

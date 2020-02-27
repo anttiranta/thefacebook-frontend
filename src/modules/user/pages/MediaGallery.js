@@ -6,15 +6,14 @@ import { Helmet } from 'react-helmet'
 
 // App Imports
 import SidePanel from '../../common/component/SidePanel'
-import FriendList from '../component/friends/List'
-import FriendRequestList from '../component/friend_request/List'
+import MediaGalleryEntryGrid from '../component/media_gallery/Grid'
 import { getByUsername } from '../redux/actions/users'
 import Loading from '../../common/component/Loading'
 import { renderIf } from '../../../utils/elementUtils'
 import { routes } from '../../../setup/routes'
 import { apostrophize } from '../../../utils/stringUtils'
 
-const Friends = (props) => {
+const MediaGallery = (props) => {
 
     const prevProps = useRef(false)
 
@@ -29,7 +28,6 @@ const Friends = (props) => {
 
     let { isLoading, error } = props.user
     let user = props.user.details
-    const me = props.me.details
 
     if (!prevProps.current) {
         isLoading = true
@@ -46,7 +44,7 @@ const Friends = (props) => {
                             <>
                                 {/* SEO */}
                                 <Helmet>
-                                    <title>{`${apostrophize(user.name)} Friends - Thefacebook`}</title>
+                                    <title>{`${apostrophize(user.name)} Photos - Thefacebook`}</title>
                                 </Helmet>
 
                                 {/* Side panel */}
@@ -54,14 +52,8 @@ const Friends = (props) => {
 
                                 {/* Main container */}
                                 <div id="terms_box">
-                                    <div style={{ backgroundColor: '#4C70A0', color: 'white' }}>Friends</div><br />
-                                    {
-                                        /* If logged in user's profile, render friend requests */
-                                        renderIf(me.id === user.id, () => (
-                                            <FriendRequestList user={user} />
-                                        ))
-                                    }
-                                    <FriendList user={user} />
+                                    <div style={{ backgroundColor: '#4C70A0', color: 'white' }}>{`${apostrophize(user.name)} Photos`}</div><br />
+                                    <MediaGalleryEntryGrid user={user} />
                                 </div>
                             </>
                         ))
@@ -72,11 +64,10 @@ const Friends = (props) => {
 }
 
 // Component State
-function friendsStates(state) {
+function mediaGalleryStates(state) {
     return {
-        user: state.user,
-        me: state.me
+        user: state.user
     }
 }
 
-export default withRouter(connect(friendsStates, { getByUsername })(Friends))
+export default withRouter(connect(mediaGalleryStates, { getByUsername })(MediaGallery))

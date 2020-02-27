@@ -45,7 +45,8 @@
 }
 
 #top_links a:hover, .clickable_link:hover {
-  color: #77C9F3
+  color: #77C9F3;
+  text-decoration: none;
 }
 
 #login_box {
@@ -174,12 +175,37 @@
   text-align: center;
 }
 
-#links_box a, .clickable_link {
+#media_gallery_entry_box {
+  border: 1px solid #4C70A0;
+  margin-left: 175px;
+  margin-right: 2px;
+  margin-top: 2px;
+  width: 820px;
+  min-height: 400px;
+}
+
+.media_gallery_thumbnail {
+  border: 1px solid #4C70A0;
+  width: 150px;
+  text-align: center;
+}
+
+#links_box a {
   text-decoration: none;
   color: #68A0E0;
 }
 
-#links_box a:hover, .clickable_link:hover {
+#links_box .clickable_link {
+  text-decoration: none;
+  color: #68A0E0;
+}
+
+#links_box a:hover {
+  color: #77C9F3;
+  text-decoration: underline;
+}
+
+#links_box .clickable_link:hover {
   color: #77C9F3;
   text-decoration: underline;
 }

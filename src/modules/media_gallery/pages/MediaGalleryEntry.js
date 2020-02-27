@@ -6,30 +6,29 @@ import { Helmet } from 'react-helmet'
 
 // App Imports
 import SidePanel from '../../common/component/SidePanel'
-import FriendList from '../component/friends/List'
-import FriendRequestList from '../component/friend_request/List'
-import { getByUsername } from '../redux/actions/users'
+import { getById } from '../redux/actions'
 import Loading from '../../common/component/Loading'
 import { renderIf } from '../../../utils/elementUtils'
 import { routes } from '../../../setup/routes'
+import { routeImage } from '../../../setup/routes'
 import { apostrophize } from '../../../utils/stringUtils'
 
-const Friends = (props) => {
+
+const MediaGalleryEntry = (props) => {
 
     const prevProps = useRef(false)
 
     useEffect(() => {
         if (!prevProps.current || prevProps.current.location.pathname !== props.location.pathname) {
-            if (props.match.params.account && !props.user.isLoading) {
-                props.getByUsername(props.match.params.account)
+            if (props.match.params.id && !props.entry.isLoading) {
+                props.getById(props.match.params.id)
             }
         }
         prevProps.current = props
     }, [props])
 
-    let { isLoading, error } = props.user
-    let user = props.user.details
-    const me = props.me.details
+    let { isLoading, error } = props.entry
+    let entry = props.entry.details
 
     if (!prevProps.current) {
         isLoading = true
@@ -42,26 +41,25 @@ const Friends = (props) => {
                 !error
                     ? isLoading
                         ? <Loading />
-                        : renderIf(user && user.id, () => (
+                        : renderIf(entry && entry.id, () => (
                             <>
                                 {/* SEO */}
                                 <Helmet>
-                                    <title>{`${apostrophize(user.name)} Friends - Thefacebook`}</title>
+                                    <title>{`${entry.label} - Thefacebook`}</title>
                                 </Helmet>
 
                                 {/* Side panel */}
                                 <SidePanel />
 
                                 {/* Main container */}
-                                <div id="terms_box">
-                                    <div style={{ backgroundColor: '#4C70A0', color: 'white' }}>Friends</div><br />
-                                    {
-                                        /* If logged in user's profile, render friend requests */
-                                        renderIf(me.id === user.id, () => (
-                                            <FriendRequestList user={user} />
-                                        ))
-                                    }
-                                    <FriendList user={user} />
+                                <div id="media_gallery_entry_box">
+                                    <div style={{ backgroundColor: '#4C70A0', color: 'white' }}>{`${apostrophize(entry.user.name)} Photos`}</div>
+                                    <br />
+
+                                    <h1 style={{textAlign: 'center'}}>[ {entry.label} ]</h1>
+                                    <div style={{textAlign: 'center'}}>
+                                        <img src={routeImage + entry.file} alt={entry.label}  />
+                                    </div>
                                 </div>
                             </>
                         ))
@@ -72,11 +70,10 @@ const Friends = (props) => {
 }
 
 // Component State
-function friendsStates(state) {
+function mgeStates(state) {
     return {
-        user: state.user,
-        me: state.me
+        entry: state.mediaGalleryEntry
     }
 }
 
-export default withRouter(connect(friendsStates, { getByUsername })(Friends))
+export default withRouter(connect(mgeStates, { getById })(MediaGalleryEntry))

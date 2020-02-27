@@ -4,6 +4,7 @@ import Register from '../../modules/user/pages/Register'
 import Profile from '../../modules/user/pages/Profile'
 import Search from '../../modules/user/pages/Search'
 import Friends from '../../modules/user/pages/Friends'
+import MediaGallery from '../../modules/user/pages/MediaGallery'
 
 // User routes
 export default {
@@ -38,6 +39,12 @@ export default {
   friends: {
     path: (account = ':account') => (`/user/${ account }/friends`),
     component: Friends,
+    auth: true
+  },
+
+  mediaGallery: {
+    path: (account = ':account') => (`/user/${ account }/photos`),
+    component: MediaGallery,
     auth: true
   },
 }

@@ -60,7 +60,7 @@ const Profile = (props) => {
                             <>
                                 {/* SEO */}
                                 <Helmet>
-                                    <title>{`User - ${ user.name }`}</title>
+                                    <title>{`User - ${ user.name } - Thefacebook`}</title>
                                 </Helmet>
 
                                 {/* Side panel */}

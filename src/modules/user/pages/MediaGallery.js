@@ -1,7 +1,7 @@
 // Imports
 import React, { useEffect, useRef } from 'react'
 import { connect } from 'react-redux'
-import { Redirect, withRouter } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
 
 // App Imports
@@ -9,12 +9,12 @@ import SidePanel from '../../common/component/SidePanel'
 import MediaGalleryEntryGrid from '../component/media_gallery/Grid'
 import { getByUsername } from '../redux/actions/users'
 import Loading from '../../common/component/Loading'
+import BoxHeading from '../component/media_gallery/BoxHeading'
 import { renderIf } from '../../../utils/elementUtils'
 import { routes } from '../../../setup/routes'
 import { apostrophize } from '../../../utils/stringUtils'
 
 const MediaGallery = (props) => {
-
     const prevProps = useRef(false)
 
     useEffect(() => {
@@ -52,7 +52,7 @@ const MediaGallery = (props) => {
 
                                 {/* Main container */}
                                 <div id="terms_box">
-                                    <div style={{ backgroundColor: '#4C70A0', color: 'white' }}>{`${apostrophize(user.name)} Photos`}</div><br />
+                                    <BoxHeading user={user} />
                                     <MediaGalleryEntryGrid user={user} />
                                 </div>
                             </>
@@ -70,4 +70,4 @@ function mediaGalleryStates(state) {
     }
 }
 
-export default withRouter(connect(mediaGalleryStates, { getByUsername })(MediaGallery))
+export default connect(mediaGalleryStates, { getByUsername })(MediaGallery)

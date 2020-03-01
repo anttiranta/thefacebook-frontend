@@ -11,7 +11,7 @@ export function plural(value, count) {
 // Generate a possessive for some arbitrary word or name
 export function apostrophize(value) {
     const possession = value !== null && value !== undefined
-        ? value.substr(value.length - 1) === 's' ? '\'' : '\'s'
+        ? value.substr(value.length - 1) === 's' ? "'" : "'s"
         : ''
     return value + possession
 }

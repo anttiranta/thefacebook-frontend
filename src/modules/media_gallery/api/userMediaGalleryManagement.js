@@ -12,7 +12,9 @@ const defaultFields = [
     'file',
     'mediaType',
     'disabled',
-    'content {mimeType, name}',
+    'content {mimeType, name, base64EncodedData}',
+    'createdAt',
+    'updatedAt'
 ]
 
 // Functions
@@ -29,14 +31,14 @@ const getById = async (id, getUserInfoFlag = true) => {
     return await axios.post(routeApi, query({
         operation: 'getUserGalleryEntry',
         variables: { id },
-        fields: getUserInfoFlag ? defaultFields.concat('user {id, name}') : getUserInfoFlag
+        fields: getUserInfoFlag ? defaultFields.concat('user {id, username, name}') : defaultFields
     }))
 }
 
 const createNew = async (entryObject) => {
     return await axios.post(routeApi, mutation({
         operation: 'createUserGalleryEntry',
-        variables: entryObject,
+        variables: buildEntryObjectForCreateOrUpdate(entryObject),
         fields: ['id']
     }))
 }
@@ -48,7 +50,7 @@ const update = async (entryObject) => {
 
     return await axios.post(routeApi, mutation({
         operation: 'updateUserGalleryEntry',
-        variables: entryObject,
+        variables: buildEntryObjectForCreateOrUpdate(entryObject),
         fields: defaultFields
     }))
 }
@@ -59,6 +61,24 @@ const remove = async (id, userId) => {
         variables: { id, userId },
         fields: ['id']
     }))
+}
+
+const buildEntryObjectForCreateOrUpdate = (entryObject) => {
+    if (entryObject.content) {
+        return {
+            ...entryObject,
+            content: {
+                value: { 
+                    base64EncodedData: entryObject.content.base64EncodedData, 
+                    mimeType: entryObject.content.mimeType, 
+                    name: entryObject.content.name 
+                }, 
+                type: "imageContentInputType", 
+                required: true
+            }
+        }
+    }
+    return { ...entryObject }
 }
 
 export default {

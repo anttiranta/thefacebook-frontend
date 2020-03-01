@@ -7,16 +7,19 @@ import { Helmet } from 'react-helmet'
 // App Imports
 import SidePanel from '../../common/component/SidePanel'
 import { getById } from '../redux/actions'
+import BoxHeading from '../component/box_heading/BoxHeading'
 import Loading from '../../common/component/Loading'
 import { renderIf } from '../../../utils/elementUtils'
 import { routes } from '../../../setup/routes'
 import { routeImage } from '../../../setup/routes'
-import { apostrophize } from '../../../utils/stringUtils'
-
 
 const MediaGalleryEntry = (props) => {
-
     const prevProps = useRef(false)
+
+    const isEdited = (mediaGalleryEntry) => {
+        return mediaGalleryEntry.updatedAt 
+            && mediaGalleryEntry.updatedAt > mediaGalleryEntry.createdAt
+    }
 
     useEffect(() => {
         if (!prevProps.current || prevProps.current.location.pathname !== props.location.pathname) {
@@ -53,10 +56,9 @@ const MediaGalleryEntry = (props) => {
 
                                 {/* Main container */}
                                 <div id="media_gallery_entry_box">
-                                    <div style={{ backgroundColor: '#4C70A0', color: 'white' }}>{`${apostrophize(entry.user.name)} Photos`}</div>
-                                    <br />
+                                    <BoxHeading user={entry.user} entry={entry} />
 
-                                    <h1 style={{textAlign: 'center'}}>[ {entry.label} ]</h1>
+                                    <h1 style={{textAlign: 'center'}}>[ {entry.label} {isEdited(entry) ? ' (edited)' : ''} ]</h1>
                                     <div style={{textAlign: 'center'}}>
                                         <img src={routeImage + entry.file} alt={entry.label}  />
                                     </div>

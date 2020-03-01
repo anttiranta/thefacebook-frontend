@@ -19,7 +19,7 @@ const Item = (props) => {
             </span>
             <span key={mediaGalleryEntry} style={{ marginTop: "5px", marginLeft: "10px", textAlign: 'center', display: 'inline-block'}}>
                 <Link to={mediaGalleryRoutes.mediaGalleryEntry.path(mediaGalleryEntry.id)}>
-                    <img src={routeImage + mediaGalleryEntry.file} alt={mediaGalleryEntry.label} class="media_gallery_thumbnail" />
+                    <img src={routeImage + mediaGalleryEntry.file} alt={mediaGalleryEntry.label} className="media_gallery_thumbnail" />
                 </Link>
             </span>
             <span style={{ display: 'block', textAlign: 'center',  marginBottom: "5px" }}>{mediaGalleryEntry.label}</span>

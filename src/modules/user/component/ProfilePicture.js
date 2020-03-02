@@ -3,6 +3,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 // Image Imports
+import { routeImage } from '../../../setup/routes'
 import noImage from '../../../resources/images/no-image.gif'
 
 const ProfilePicture = (props) => {
@@ -20,8 +21,13 @@ const ProfilePicture = (props) => {
                 </table>
             </div>
             <p>
-                {/* TODO: show user's profile picture */}
-                <img src={noImage} height="200" width="250" style={{ marginTop: '2px' }} alt="Avatar" />
+                <img 
+                    src={user.profilePicture ? (routeImage + user.profilePicture.file) : noImage} 
+                    height="200" 
+                    width="250" 
+                    style={{ marginTop: '2px' }} 
+                    alt="Avatar" 
+                />
             </p>
         </div>
     )

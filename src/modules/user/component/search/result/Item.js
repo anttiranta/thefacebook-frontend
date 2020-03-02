@@ -10,6 +10,7 @@ import ClickableLink from '../../../../common/component/ClickableLink'
 import { routes } from '../../../../../setup/routes'
 import { setError, setNotice, setSuccess } from '../../../../common/component/notification/actions'
 import { create } from '../../../../friend_request/redux/actions'
+import { routeImage } from '../../../../../setup/routes'
 
 // Image Imports
 import noImage from '../../../../../resources/images/no-image.gif'
@@ -41,7 +42,6 @@ const Item = (props) => {
                 }
             })
             .catch(error => {
-                debugger
                 props.setError('There was some error sending friend request. Please try again.')
             })
             .then(() => {
@@ -51,7 +51,7 @@ const Item = (props) => {
 
     return (
         <div style={{ marginLeft: 'auto', marginRight: 'auto', marginTop: '3px', marginBottom: '2px' }}>
-            <img src={user.profilePicture ? user.profilePicture : noImage} height="100" width="150" style={{ marginLeft: '10px', padding: '2px' }} alt="Avatar" />
+            <img src={user.profilePicture ? routeImage + user.profilePicture.file : noImage} height="100" width="150" style={{ marginLeft: '10px', padding: '2px' }} alt="Avatar" />
 
             <table style={{ maxWidth: '100%', display: "inline-block", marginLeft: '10px', marginBottom: "15px" }} >
                 <tbody>

@@ -7,21 +7,20 @@ import { routeApi } from '../../../setup/routes'
 import { isEmpty } from '../../../utils/objectUtils'
 
 const defaultUserFields = [
-  'id', 
-  'name', 
-  'email', 
-  'username', 
-  'gender', 
-  'memberSince', 
-  'status', 
-  'year', 
-  'concentation', 
-  'lookingFor', 
-  'interestedIn', 
-  'relationship', 
-  'politicalView', 
-  'interests', 
-  'profilePicture'
+  'id',
+  'name',
+  'email',
+  'username',
+  'gender',
+  'memberSince',
+  'status',
+  'year',
+  'concentation',
+  'lookingFor',
+  'interestedIn',
+  'relationship',
+  'politicalView',
+  'interests'
 ]
 
 // Functions
@@ -29,27 +28,27 @@ const defaultUserFields = [
 const getList = async (queryOptions = {}) => {
   const defaultOptions = {
     operation: 'users',
-    fields: defaultUserFields
+    fields: addModelFieldsToFields(['profilePicture'], defaultUserFields)
   }
 
   return await axios.post(routeApi, query(
-    !isEmpty(queryOptions) ? Object.assign(defaultOptions, queryOptions) : defaultOptions 
+    !isEmpty(queryOptions) ? Object.assign(defaultOptions, queryOptions) : defaultOptions
   ))
 }
 
-const getById = async (id) => {
+const getById = async (id, modelsToJoin = {}) => {
   return await axios.post(routeApi, query({
     operation: 'getUserById',
     variables: { id },
-    fields: defaultUserFields
+    fields: addModelFieldsToFields(modelsToJoin, defaultUserFields)
   }))
 }
 
-const getByUsername = async (username) => {
+const getByUsername = async (username, modelsToJoin = {}) => {
   return await axios.post(routeApi, query({
     operation: 'getUserByUsername',
     variables: { username },
-    fields: defaultUserFields
+    fields: addModelFieldsToFields(modelsToJoin, defaultUserFields)
   }))
 }
 
@@ -79,6 +78,22 @@ const deleteById = async (id) => {
     variables: { id },
     fields: ['id']
   }))
+}
+
+const addModelFieldsToFields = (modelsToJoin, fields) => {
+  if (!isEmpty(modelsToJoin)) {
+
+    modelsToJoin.forEach(model => {
+        if (model === 'profilePicture') {
+          fields.push('profilePicture {id, file}')
+        }
+        if (model === 'friends') {
+          fields.push('friends {id, name}')
+        }
+    });
+  }
+
+  return fields
 }
 
 export default {

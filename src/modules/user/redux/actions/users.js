@@ -18,7 +18,7 @@ export const USERS_GET_FRIEND_LIST_FAILURE = 'USERS/GET_FRIEND_LIST_FAILURE'
 // Actions
 
 // Get list of users
-export function getList(variables = {}, isLoading = true, forceRefresh = false) {
+export function getList(variables = {}, isLoading = true) {
   return async dispatch => {
     dispatch({
       type: USERS_GET_LIST_REQUEST,
@@ -55,16 +55,16 @@ export function getList(variables = {}, isLoading = true, forceRefresh = false) 
 }
 
 // Get single user by id
-export function getById(id, isLoading = true) {
+export function getById(id, modelsToJoin = {}, isLoading = true) {
   return getSingleUser(id, function (id) {
-    return usersApi.getById(id);
+    return usersApi.getById(id, modelsToJoin);
   }, isLoading)
 }
 
 // Get single user by username
-export function getByUsername(username, isLoading = true) {
+export function getByUsername(username, modelsToJoin = {}, isLoading = true) {
   return getSingleUser(username, function (username) {
-    return usersApi.getByUsername(username);
+    return usersApi.getByUsername(username, modelsToJoin);
   }, isLoading)
 }
 

@@ -9,20 +9,36 @@ import mediaGalleryRoutes from '../../../setup/routes/media_gallery'
 
 // Component
 const Item = (props) => {
-    const { mediaGalleryEntry } = props
+    const { mediaGalleryEntry, isProfilePicture } = props
+
+    const renderIsProfilePictureText = (isProfilePicture) => {
+        return (
+            <>
+                <b>{isProfilePicture === true ? 'Profile picture' : ''} </b>
+                {isProfilePicture === true ? <br /> : ''}
+            </>
+        )
+    }
 
     return (
         <td>
-            {/* TODO: show whether a default image or not */}
             <span style={{ display: 'block', textAlign: 'center', marginTop: "10px" }}>
+                { /* Is profile picture */}
+                {renderIsProfilePictureText(isProfilePicture)}
+
+                { /* Posted at */}
                 {mediaGalleryEntry.createdAt ? new Date(parseInt(mediaGalleryEntry.createdAt)).toUTCString() : '(creation time unknown)'}
             </span>
-            <span key={mediaGalleryEntry} style={{ marginTop: "5px", marginLeft: "10px", textAlign: 'center', display: 'inline-block'}}>
+
+            { /* Image & link */}
+            <span key={mediaGalleryEntry} id="media_gallery_thumbnail_box">
                 <Link to={mediaGalleryRoutes.mediaGalleryEntry.path(mediaGalleryEntry.id)}>
                     <img src={routeImage + mediaGalleryEntry.file} alt={mediaGalleryEntry.label} className="media_gallery_thumbnail" />
                 </Link>
             </span>
-            <span style={{ display: 'block', textAlign: 'center',  marginBottom: "5px" }}>{mediaGalleryEntry.label}</span>
+
+            { /* Label */}
+            <span style={{ display: 'block', textAlign: 'center', marginBottom: "5px" }}>{mediaGalleryEntry.label}</span>
         </td>
     )
 }
@@ -30,6 +46,7 @@ const Item = (props) => {
 // Component Properties
 Item.propTypes = {
     mediaGalleryEntry: PropTypes.object.isRequired,
+    isProfilePicture: PropTypes.bool,
 }
 
 export default withRouter(Item)

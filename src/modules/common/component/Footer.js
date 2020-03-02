@@ -6,7 +6,7 @@ import { Link} from 'react-router-dom'
 import pagesRoutes from '../../../setup/routes/pages'
 
 const Footer = () => {
-    // TODO 2: make links clicked?
+    // TODO: make links clicked?
 
     const padding = {padding: 5}
 

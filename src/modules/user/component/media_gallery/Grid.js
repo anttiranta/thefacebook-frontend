@@ -22,12 +22,16 @@ const Grid = (props) => {
     }, [props])
 
     const renderTableRow = (columns, i) => {
-        // TODO: we need to know whether this is default photo or not = from props.user.profilePicture
         const keyValueTr = 'tr' + i
 
         return <tr key={keyValueTr}>
             {columns.map((mediaGalleryEntry, j) => (
-                <Item key={j} mediaGalleryEntry={mediaGalleryEntry}  />
+                <Item 
+                    key={j} 
+                    mediaGalleryEntry={mediaGalleryEntry} 
+                    isProfilePicture={props.user.profilePicture 
+                        && mediaGalleryEntry.id === props.user.profilePicture.id}  
+                />
             ))}
         </tr>
     }

@@ -18,7 +18,7 @@ const Preview = (props) => {
 
                 {/* Photo preview */}
                 <div style={{ textAlign: 'center' }}>
-                    <img src={previewImage} alt="Photo preview"
+                    <img src={previewImage} alt="Preview"
                         style={{ maxWidth: 600, marginTop: '1em' }} />
                 </div>
                 <br />

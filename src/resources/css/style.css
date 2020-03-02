@@ -184,6 +184,13 @@
   min-height: 400px;
 }
 
+#media_gallery_thumbnail_box {
+  margin-top: 5px;
+  margin-left: 10px;
+  text-align: center;
+  display: inline-block
+}
+
 .media_gallery_thumbnail {
   border: 1px solid #4C70A0;
   width: 150px;

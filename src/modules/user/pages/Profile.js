@@ -36,7 +36,7 @@ const Profile = (props) => {
     useEffect(() => {
         if (!prevProps.current || prevProps.current.location.pathname !== props.location.pathname) {
             if (props.match.params.account && !props.user.isLoading) {
-                props.getByUsername(props.match.params.account)
+                props.getByUsername(props.match.params.account, ['profilePicture', 'friends'])
             }
         }
         prevProps.current = props

@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 // App Imports
 import { setError, setNotice, setSuccess } from '../../common/component/notification/actions'
 import { accept, decline, getListByReceiver } from '../redux/actions'
+import { routeImage } from '../../../setup/routes'
 
 // Image Imports
 import noImage from '../../../resources/images/no-image.gif'
@@ -67,13 +68,11 @@ const Item = (props) => {
 
     return (
         <div style={{ marginLeft: 'auto', marginRight: 'auto', marginTop: '3px', marginBottom: '2px' }}>
-            {/* TODO: profile image */}
-            <img src={profilePicture ? profilePicture : noImage} height="100" width="150" style={{ marginLeft: '10px', verticalAlign: 'middle', padding: '2px' }} alt="Avatar" />
+            <img src={profilePicture ? routeImage + profilePicture.file : noImage} height="100" width="150" style={{ marginLeft: '10px', verticalAlign: 'middle', padding: '2px' }} alt="Avatar" />
 
             <div style={{ display: "inline-block", marginLeft: '10px' }}>
                 {creator.name}<br />
                 {createdAt ? 'Request sent: ' + new Date(parseInt(createdAt)).toDateString(): ''}
-                {/* TODO: mutual friends amount? */}
             </div>
 
             <div style={{ float: 'right', marginTop: '40px', marginRight: '15px' }}>

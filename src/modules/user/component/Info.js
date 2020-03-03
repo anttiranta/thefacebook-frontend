@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom'
 
 // App Imports
 import userRoutes from '../../../setup/routes/user'
+import pagesRoutes from '../../../setup/routes/pages'
+import { formatAsLocaleAMPMDate } from '../../../utils/dateUtils'
 
 const Info = (props) => {
     const info = props.user.details
@@ -41,7 +43,11 @@ const Info = (props) => {
                     </tr>
                     <tr>
                         <td>Member Since:</td>
-                        <td>{info.memberSince ? new Date(parseInt(info.memberSince)).toUTCString() : ''}</td>
+                        <td>{info.memberSince ? formatAsLocaleAMPMDate(new Date(parseInt(info.memberSince))) : ''}</td>
+                    </tr>
+                    <tr>
+                        <td>Last Updated:</td>
+                        <td>{info.updatedAt ? formatAsLocaleAMPMDate(new Date(parseInt(info.updatedAt))) : ''}</td>
                     </tr>
                 </tbody>
             </table>
@@ -52,7 +58,7 @@ const Info = (props) => {
                     </tr>
                     <tr>
                         <td>Email:</td>
-                        <td>{info.email}</td>
+                        <td><a href={'mailto:' + info.email}>{info.email}</a></td>
                     </tr>
                     <tr>
                         <td>Status:</td>
@@ -69,6 +75,14 @@ const Info = (props) => {
                     <tr>
                         <td>Concentation:</td>
                         <td>{info.concentation}</td>
+                    </tr>
+                    <tr>
+                        <td>Phone:</td>
+                        <td><Link to={pagesRoutes.construction.path}>{info.phone}</Link></td>
+                    </tr>
+                    <tr>
+                        <td>School:</td>
+                        <td><Link to={pagesRoutes.construction.path}>{info.school}</Link></td>
                     </tr>
                 </tbody>
             </table>

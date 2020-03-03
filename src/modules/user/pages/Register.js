@@ -41,7 +41,7 @@ const Register = (props) => {
         try {
             validate({account, email, name, status, password, password2, terms})
 
-            await props.register({username: account, email, name, relationship: status, password})
+            await props.register({username: account, email, name, status, password})
 
             props.setSuccess('Thank you, you have registered - you may now login.') 
             

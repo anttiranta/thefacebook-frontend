@@ -116,6 +116,7 @@ const Form = (props) => {
                                     name="label"
                                     value={mediaGalleryEntry.label}
                                     onChange={onChangeField}
+                                    size="50"
                                 />
                             </td>
                         </tr>

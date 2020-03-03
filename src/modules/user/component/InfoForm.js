@@ -25,6 +25,8 @@ const InfoForm = (props) => {
   const relationshipSelect = useInput('select', user.relationship)
   const politicalViewSelect = useInput('select', user.politicalView)
   const interestsInput = useInput('text', user.interests)
+  const phoneInput = useInput('text', user.phone)
+  const schoolInput = useInput('text', user.school)
 
   const validate = () => {
     if (!emailInput.value) {
@@ -56,6 +58,8 @@ const InfoForm = (props) => {
         'relationship': relationshipSelect.value,
         'politicalView': politicalViewSelect.value,
         'interests': interestsInput.value,
+        'phone': phoneInput.value,
+        'school': schoolInput.value,
       })
 
       props.setSuccess('Profile updated!')
@@ -136,7 +140,6 @@ const InfoForm = (props) => {
                 <select name="year" {...yearSelect}>
                   <option value="">Please choose</option>
                   <option value="2016">2016</option>
-                  <option value="2016">2016</option>
                   <option value="2015">2015</option>
                   <option value="2014">2014</option>
                   <option value="2013">2013</option>
@@ -161,6 +164,14 @@ const InfoForm = (props) => {
               <td>
                 <input type="text" name="concentation" {...concentationInput} />
               </td>
+            </tr>
+            <tr>
+              <td>Phone:</td>
+              <td><input type="text" name="phone" {...phoneInput} /></td>
+            </tr>
+            <tr>
+              <td>School:</td>
+              <td><input type="text" name="school" {...schoolInput} /></td>
             </tr>
           </tbody>
         </table>

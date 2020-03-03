@@ -20,7 +20,10 @@ const defaultUserFields = [
   'interestedIn',
   'relationship',
   'politicalView',
-  'interests'
+  'interests',
+  'phone',
+  'school',
+  'updatedAt'
 ]
 
 // Functions
@@ -28,7 +31,7 @@ const defaultUserFields = [
 const getList = async (queryOptions = {}) => {
   const defaultOptions = {
     operation: 'users',
-    fields: addModelFieldsToFields(['profilePicture'], defaultUserFields)
+    fields: defaultUserFields
   }
 
   return await axios.post(routeApi, query(
@@ -68,7 +71,7 @@ const update = async (userObject) => {
   return await axios.post(routeApi, mutation({
     operation: 'updateAccount',
     variables: userObject,
-    fields: defaultUserFields
+    fields: ['id']
   }))
 }
 

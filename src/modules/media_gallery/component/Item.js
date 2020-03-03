@@ -6,6 +6,8 @@ import { Link, withRouter } from 'react-router-dom'
 // App Imports
 import { routeImage } from '../../../setup/routes'
 import mediaGalleryRoutes from '../../../setup/routes/media_gallery'
+import { formatAsLocaleAMPMDate } from '../../../utils/dateUtils'
+import { add3Dots } from '../../../utils/stringUtils'
 
 // Component
 const Item = (props) => {
@@ -27,18 +29,18 @@ const Item = (props) => {
                 {renderIsProfilePictureText(isProfilePicture)}
 
                 { /* Posted at */}
-                {mediaGalleryEntry.createdAt ? new Date(parseInt(mediaGalleryEntry.createdAt)).toUTCString() : '(creation time unknown)'}
+                {mediaGalleryEntry.createdAt ? formatAsLocaleAMPMDate(new Date(parseInt(mediaGalleryEntry.createdAt))) : '(creation time unknown)'}
             </span>
 
             { /* Image & link */}
-            <span key={mediaGalleryEntry} id="media_gallery_thumbnail_box">
+            <span key={mediaGalleryEntry} className="media_gallery_thumbnail_box">
                 <Link to={mediaGalleryRoutes.mediaGalleryEntry.path(mediaGalleryEntry.id)}>
                     <img src={routeImage + mediaGalleryEntry.file} alt={mediaGalleryEntry.label} className="media_gallery_thumbnail" />
                 </Link>
-            </span>
+            </span><br/>
 
             { /* Label */}
-            <span style={{ display: 'block', textAlign: 'center', marginBottom: "5px" }}>{mediaGalleryEntry.label}</span>
+            <span className="media_gallery_thumbnail_label">{add3Dots(mediaGalleryEntry.label)}</span>
         </td>
     )
 }

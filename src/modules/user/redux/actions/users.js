@@ -28,6 +28,7 @@ export function getList(variables = {}, isLoading = true) {
     try {
       const response = await usersApi.getList({
         'variables': variables,
+        'fields': ['id', 'name', 'username', 'status', 'relationship', 'profilePicture {id, file}']
       });
 
       let errors = response.data.errors

@@ -184,7 +184,7 @@
   min-height: 400px;
 }
 
-#media_gallery_thumbnail_box {
+.media_gallery_thumbnail_box {
   margin-top: 5px;
   margin-left: 10px;
   text-align: center;
@@ -195,6 +195,12 @@
   border: 1px solid #4C70A0;
   width: 150px;
   text-align: center;
+}
+
+.media_gallery_thumbnail_label {
+  display: block;
+  text-align: center; 
+  margin-bottom: 5px;
 }
 
 #links_box a {

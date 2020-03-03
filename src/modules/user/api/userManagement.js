@@ -1,6 +1,6 @@
 // Imports
 import axios from 'axios'
-import { query } from 'gql-query-builder'
+import { query, mutation } from 'gql-query-builder'
 
 // App Imports
 import { routeApi } from '../../../setup/routes'
@@ -13,6 +13,15 @@ const authenticate = async (username, password) => {
     }))
 }
 
+const setProfilePicture = async (userId, entryId) => {
+    return await axios.post(routeApi, mutation({
+        operation: 'setAccountProfilePicture',
+        variables: { userMediaGalleryEntryId: entryId, userId },
+        fields: ['id']
+    }))
+}
+
 export default {
-    authenticate
+    authenticate,
+    setProfilePicture
 }

@@ -9,7 +9,7 @@ const getList = async (userId) => {
     return await axios.post(routeApi, query({
         operation: 'userFriends',
         variables: { id: userId },
-        fields: ['id, name, status, relationship, username'] 
+        fields: ['id, name, status, relationship, username, profilePicture{id, file}'] 
     }))
 }
 

@@ -12,14 +12,10 @@ import Loading from '../../common/component/Loading'
 import { renderIf } from '../../../utils/elementUtils'
 import { routes } from '../../../setup/routes'
 import { routeImage } from '../../../setup/routes'
+import { apostrophize } from '../../../utils/stringUtils'
 
 const MediaGalleryEntry = (props) => {
     const prevProps = useRef(false)
-
-    const isEdited = (mediaGalleryEntry) => {
-        return mediaGalleryEntry.updatedAt 
-            && mediaGalleryEntry.updatedAt > mediaGalleryEntry.createdAt
-    }
 
     useEffect(() => {
         if (!prevProps.current || prevProps.current.location.pathname !== props.location.pathname) {
@@ -48,7 +44,9 @@ const MediaGalleryEntry = (props) => {
                             <>
                                 {/* SEO */}
                                 <Helmet>
-                                    <title>{`${entry.label} - Thefacebook`}</title>
+                                    <title>
+                                        {`${entry.label} - ${apostrophize(entry.user.name)} Photos - Thefacebook`}
+                                    </title>
                                 </Helmet>
 
                                 {/* Side panel */}
@@ -58,7 +56,7 @@ const MediaGalleryEntry = (props) => {
                                 <div id="media_gallery_entry_box">
                                     <BoxHeading user={entry.user} entry={entry} />
 
-                                    <h1 style={{textAlign: 'center'}}>[ {entry.label} {isEdited(entry) ? ' (edited)' : ''} ]</h1>
+                                    <h1 style={{textAlign: 'center'}}>[ {entry.label} ]</h1>
                                     <div style={{textAlign: 'center'}}>
                                         <img src={routeImage + entry.file} alt={entry.label}  />
                                     </div>

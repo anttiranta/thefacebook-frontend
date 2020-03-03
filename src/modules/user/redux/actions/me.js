@@ -88,6 +88,24 @@ export function register(userDetails) {
     }
 }
 
+// Update profile picture
+export function setProfilePicture(entryId, userId) {
+    return async dispatch => {
+      const response = await userManagementApi.setProfilePicture(userId, entryId);
+  
+      let errors = response.data.errors
+  
+      if (response.status === 200) {
+        if (errors && errors.length > 0) {
+          throw new Error(errors[0].message)
+        }
+        return response.data.data.setAccountProfilePicture
+      } else {
+        throw new Error('Some error occurred. Please try again.')
+      }
+    }
+  }
+
 // Set user token and info in localStorage
 export function loginSetUserLocalStorage(token, user) {
     window.localStorage.setItem('token', token)

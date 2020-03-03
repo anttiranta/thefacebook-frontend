@@ -7,6 +7,7 @@ import { connect } from 'react-redux'
 import EditLink from './EditLink'
 import RemoveLink from './RemoveLink'
 import GalleryLink from './GalleryLink'
+import SetProfilePictureLink from './SetProfilePictureLink'
 import { apostrophize } from '../../../../utils/stringUtils'
 
 // Component
@@ -25,6 +26,7 @@ const BoxHeading = (props) => {
                                 {
                                     user.id === me.id
                                         ? <>
+                                            <SetProfilePictureLink entry={entry} me={me} />
                                             <EditLink entry={entry} />
                                             <RemoveLink entry={entry} me={me} />
                                         </>

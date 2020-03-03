@@ -51,7 +51,7 @@ const Item = (props) => {
 
     return (
         <div style={{ marginLeft: 'auto', marginRight: 'auto', marginTop: '3px', marginBottom: '2px' }}>
-            <img src={user.profilePicture ? routeImage + user.profilePicture.file : noImage} height="100" width="150" style={{ marginLeft: '10px', padding: '2px' }} alt="Avatar" />
+            <img src={user.profilePicture ? routeImage + user.profilePicture.file : noImage} height="100" style={{ marginLeft: '10px', padding: '2px' }} alt="Avatar" />
 
             <table style={{ maxWidth: '100%', display: "inline-block", marginLeft: '10px', marginBottom: "15px" }} >
                 <tbody>
@@ -68,8 +68,8 @@ const Item = (props) => {
                         <td style={{ verticalAlign: 'top' }}>{user.relationship}</td>
                     </tr>
                     <tr>
-                        <td style={{ verticalAlign: 'top' }}>School: </td>
-                        <td style={{ verticalAlign: 'top' }}><a href={routes.construction.path}>My School</a></td>
+                        <td style={{ verticalAlign: 'top' }}>Screenname: </td>
+                        <td style={{ verticalAlign: 'top' }}>{user.username}</td>
                     </tr>
                 </tbody>
             </table>

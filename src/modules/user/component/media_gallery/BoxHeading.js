@@ -40,7 +40,8 @@ const BoxHeading = (props) => {
 
 // Component Properties
 BoxHeading.propTypes = {
-    user: PropTypes.object.isRequired
+    user: PropTypes.object.isRequired,
+    me: PropTypes.object.isRequired,
 }
 
 // Component State

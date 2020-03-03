@@ -17,7 +17,12 @@ const getPendingList = async (variables = {}) => {
     return await axios.post(routeApi, query({
         operation: 'getPendingFriendRequests',
         variables: variables,
-        fields: ['id', 'creator {id, name, email, friends {id}}', 'receiver {id, name, email, friends {id}}', 'createdAt']
+        fields: [
+            'id', 
+            'creator {id, name, email, username, friends {id}, profilePicture {id, file}}', 
+            'receiver {id, name, email, username, friends {id}}', 
+            'createdAt'
+        ]
     }))
 }
 

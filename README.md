@@ -13,7 +13,6 @@ Frontend implementation for this project: https://github.com/anttiranta/thefaceb
 ### Photo gallery
 ![IMAGE](https://raw.githubusercontent.com/anttiranta/thefacebook-frontend/master/screenshots/mediagallery.jpg)
 ![IMAGE](https://raw.githubusercontent.com/anttiranta/thefacebook-frontend/master/screenshots/photopage.jpg)
-![IMAGE](https://raw.githubusercontent.com/anttiranta/thefacebook-frontend/master/screenshots/photopage2.jpg)
 
 ### Friends and friend requests list
 ![IMAGE](https://raw.githubusercontent.com/anttiranta/thefacebook-frontend/master/screenshots/friendlist.jpg)

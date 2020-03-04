@@ -35,7 +35,8 @@ const InfoForm = (props) => {
     if (!isValidEmail(emailInput.value)) {
       throw new Error('Please enter a valid email address.')
     }
-    if (yearSelect.value !== "" && isNaN(yearSelect.value)) {
+    if ((yearSelect.value !== "" && isNaN(yearSelect.value)) 
+      || yearSelect.value < new Date().getFullYear() - 150) {
       throw new Error('Please enter a valid year.')
     }
   }

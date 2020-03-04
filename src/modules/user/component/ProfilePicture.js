@@ -37,6 +37,7 @@ const ProfilePicture = (props) => {
                 <img 
                     src={user.profilePicture ? (routeImage + user.profilePicture.file) : noImage} 
                     width="250" 
+                    height="100%"
                     style={{ marginTop: '2px' }} 
                     alt="Avatar" 
                 />

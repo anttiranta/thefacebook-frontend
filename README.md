@@ -21,4 +21,3 @@ Frontend implementation for this project: https://github.com/anttiranta/thefaceb
 ## To note
 
 - Under construction.
-- Currently accepting friend request does not update friend list (will be fixed)

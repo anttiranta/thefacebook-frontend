@@ -2,12 +2,15 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 // App Imports
 import { setError, setNotice, setSuccess } from '../../common/component/notification/actions'
 import { accept, decline, getListByReceiver } from '../redux/actions'
 import { routeImage } from '../../../setup/routes'
+import { getFriendList } from '../../user/redux/actions/users'
 import { formatAsLocaleAMPMDate } from '../../../utils/dateUtils'
+import userRoutes from '../../../setup/routes/user'
 
 // Image Imports
 import noImage from '../../../resources/images/no-image.gif'
@@ -32,6 +35,8 @@ const Item = (props) => {
                 } else {
                     props.setSuccess(request.creator.name + ' was added to your friends.')
                     
+                    props.getFriendList(request.receiver.id)
+
                     setIsLoading(false)
                 }
             }).catch(error => {
@@ -70,11 +75,19 @@ const Item = (props) => {
     return (
         <div style={{ marginLeft: 'auto', marginRight: 'auto', marginTop: '3px', marginBottom: '2px' }}>
             { /* Profile picture */}
-            <img src={creator.profilePicture ? routeImage + creator.profilePicture.file : noImage} height="100" style={{ marginLeft: '10px', verticalAlign: 'middle', padding: '2px' }} alt="Avatar" />
+            <Link to={userRoutes.profile.path(creator.username)}>
+                <img 
+                    src={creator.profilePicture ? routeImage + creator.profilePicture.file : noImage} 
+                    height="100" 
+                    style={{ marginLeft: '10px', verticalAlign: 'middle', padding: '2px' }} 
+                    alt="Avatar" 
+                />
+            </Link>
 
             { /* Info */}
             <div style={{ display: "inline-block", marginLeft: '10px' }}>
-                {creator.name} ({creator.username})<br />
+                {creator.name} ({creator.username})
+                <br />
                 {createdAt ? 'Request sent: ' + formatAsLocaleAMPMDate(new Date(parseInt(createdAt))): ''}
             </div>
 
@@ -92,6 +105,7 @@ const Item = (props) => {
 // Component Properties
 Item.propTypes = {
     friendRequest: PropTypes.object.isRequired,
+    getFriendList: PropTypes.func.isRequired,
     setError: PropTypes.func.isRequired,
     setNotice: PropTypes.func.isRequired,
     setSuccess: PropTypes.func.isRequired,
@@ -100,4 +114,12 @@ Item.propTypes = {
     decline: PropTypes.func.isRequired
 }
 
-export default connect(null, {accept, decline, getListByReceiver, setSuccess, setNotice, setError})(Item)
+export default connect(null, {
+    accept, 
+    decline, 
+    getListByReceiver,
+    getFriendList,
+    setSuccess, 
+    setNotice, 
+    setError
+})(Item)

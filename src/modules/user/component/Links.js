@@ -3,6 +3,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 // App Imports
+import SendFriendRequestLink from '../../friend_request/component/SendFriendRequestLink'
 import pagesRoutes from '../../../setup/routes/pages'
 import userRoutes from '../../../setup/routes/user'
 import LinkContainer from '../../common/component/links_box/LinkContainer'
@@ -21,7 +22,7 @@ const Links = (props) => {
                 <LinkItem to={pagesRoutes.construction.path}>Send a Message</LinkItem>
             ))}
             {renderIf(user.id !== me.id, () => (
-                <LinkItem to={pagesRoutes.construction.path}>Add as a Friend</LinkItem>
+                <SendFriendRequestLink user={user}>Add as a Friend</SendFriendRequestLink>
             ))}
         </LinkContainer>
     )

@@ -8,15 +8,11 @@ Frontend implementation for this project: https://github.com/anttiranta/thefaceb
 ## Screenshots
 
 ### Profile page
-![IMAGE](https://raw.githubusercontent.com/anttiranta/thefacebook-frontend/master/screenshots/profilepic.jpg)
+![IMAGE](https://raw.githubusercontent.com/anttiranta/anttiranta.github.io/master/images/thefacebook/profilepic.jpg)
 
 ### Photo gallery
-![IMAGE](https://raw.githubusercontent.com/anttiranta/thefacebook-frontend/master/screenshots/mediagallery.jpg)
-![IMAGE](https://raw.githubusercontent.com/anttiranta/thefacebook-frontend/master/screenshots/photopage.jpg)
-
-### Friends and friend requests list
-![IMAGE](https://raw.githubusercontent.com/anttiranta/thefacebook-frontend/master/screenshots/friendlist.jpg)
-
+![IMAGE](https://raw.githubusercontent.com/anttiranta/anttiranta.github.io/master/images/thefacebook/mediagallery.jpg)
+![IMAGE](https://raw.githubusercontent.com/anttiranta/anttiranta.github.io/master/images/thefacebook/photopage.jpg)
 
 ## To note
 
